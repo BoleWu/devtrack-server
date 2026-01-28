@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3308/devtrack
+    username: root
+    password: Wbl5860.
+  security:
+    user:
+          name: admin  # 设置默认用户名
+          password: "123456"  # 清除默认密码，使用我们自己的配置
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# JWT Configuration
+jwt:
+  secret: devtrackSecretKey
+  expiration: 86400000
+
+# Security Configuration
