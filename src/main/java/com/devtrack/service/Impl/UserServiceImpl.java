@@ -12,23 +12,26 @@ import com.devtrack.service.UserService;
 import com.devtrack.service.log.LoginLogService;
 import com.devtrack.vo.LoginVO;
 import com.devtrack.vo.UserVO;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.devtrack.common.util.JwtUtil;
+
 @Service
 public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final LoginLogService loginLogService;
+    private final JwtUtil jwtUtil;
 
-    public UserServiceImpl(UserMapper userMapper, PasswordEncoder passwordEncoder, LoginLogService loginLogService) {
+    public UserServiceImpl(UserMapper userMapper, PasswordEncoder passwordEncoder, LoginLogService loginLogService, JwtUtil jwtUtil) {
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
         this.loginLogService = loginLogService;
+        this.jwtUtil = jwtUtil;
     }
 
     @Override
@@ -85,6 +88,9 @@ public class UserServiceImpl implements UserService {
 
             throw new LoginException("密码错误");
         }
+        
+        // 生成JWT令牌
+
 
         // 记录登录成功日志
         HttpServletRequest request = getCurrentRequest();
@@ -102,8 +108,6 @@ public class UserServiceImpl implements UserService {
         // 构建登录响应对象
         LoginVO loginVO = new LoginVO();
         loginVO.setMessage("登录成功");
-        // 这里可以生成实际的token，暂时用模拟值
-        loginVO.setToken("Bearer " + System.currentTimeMillis());
 
         return loginVO;
     }

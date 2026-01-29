@@ -26,7 +26,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
             .authorizeHttpRequests(authz -> authz
-                .anyRequest().permitAll() // 允许所有请求，可以根据需要调整
+                .requestMatchers("/api/auth/login", "/api/auth/register", "/health", "/", "/error").permitAll() // 允许无需认证的请求
+                .anyRequest().authenticated() // 其他请求需要认证
             );
         return http.build();
     }

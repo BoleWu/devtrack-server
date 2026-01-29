@@ -27,5 +27,17 @@ mybatis-plus:
 jwt:
   secret: devtrackSecretKey
   expiration: 86400000
-
 # Security Configuration
+
+# HandlerInterceptor
+handler:
+  interceptor:
+    enable: true
+    exclude-urls:
+      - /api/auth/login
+      - /api/auth/register
+      - /health
+      - /error
+      - /
+    class-names:
+      - com.devtrack.interceptor.AuthenticationInterceptor
