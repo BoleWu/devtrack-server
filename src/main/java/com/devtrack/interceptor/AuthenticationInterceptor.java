@@ -5,6 +5,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  */
 @Component
 @RequiredArgsConstructor
+@Log4j2
 public class AuthenticationInterceptor implements HandlerInterceptor {
 
     private final JwtUtil jwtUtil;
@@ -21,9 +23,11 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 获取Authorization头
-        String authHeader = request.getHeader("Authorization");
+        log.info("开始了----------------------");
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        String authHeader = request.getHeader("Authorization");
+        log.info("authHeader-------->{}", authHeader);
+        if (authHeader != null && authHeader.startsWith("Bearer")) {
             String token = authHeader.substring(7); // 移除 "Bearer " 前缀
 
             try {

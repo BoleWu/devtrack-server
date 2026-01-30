@@ -8,6 +8,7 @@ import com.devtrack.vo.LoginVO;
 import com.devtrack.vo.UserVO;
 import lombok.RequiredArgsConstructor;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ import javax.security.auth.login.LoginException;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Log4j2
 public class UserController {
     private final UserService userService;
     
@@ -30,9 +32,9 @@ public class UserController {
         return R.ok("注册成功");
     }
     @PostMapping("/login")
-    public R<LoginVO> login(@Validated @RequestBody UserLoginDTO logindto, HttpServletRequest request) throws LoginException {
-        LoginVO loginVO = userService.login(logindto);
-        return R.ok(loginVO);
+    public LoginVO login(@Validated @RequestBody UserLoginDTO logindto, HttpServletRequest request) {
+        //        return R.ok(loginVO);
+        return userService.login(logindto);
     }
     
     @GetMapping("/profile")

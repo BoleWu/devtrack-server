@@ -1,5 +1,6 @@
 package com.devtrack.config;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,10 +12,14 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.devtrack.config.InterceptorProperties;
+import com.devtrack.config.JwtConfig;
+
 import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@EnableConfigurationProperties({JwtConfig.class, InterceptorProperties.class})
 public class SecurityConfig {
 
     @Bean
@@ -26,7 +31,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/api/auth/login", "/api/auth/register", "/health", "/", "/error").permitAll() // 允许无需认证的请求
+                .requestMatchers("/api/auth/login", "/api/auth/register", "/health", "/error").permitAll() // 允许无需认证的请求
+                .requestMatchers("/api/dashboard/**").permitAll() // 允许访问仪表盘页面
                 .anyRequest().authenticated() // 其他请求需要认证
             );
         return http.build();

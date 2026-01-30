@@ -3,15 +3,18 @@
  */
 package com.devtrack.common.util;
 
+import com.devtrack.dto.UserLoginDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.devtrack.config.JwtConfig;
+
+import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,12 +22,16 @@ import java.util.function.Function;
 
 @Component
 public class JwtUtil {
-    // JWT 密钥，用于签名和验证 JWT 令牌
-    @Value("${jwt.secret}")
-    private String secret;
-    // JWT 令牌的过期时间，单位为毫秒
-    @Value("${jwt.expiration}")
-    private Long expiration;
+    private final JwtConfig jwtConfig;
+
+/**
+ * JwtUtil的构造函数，用于初始化JwtUtil实例
+ * @param jwtConfig JWT配置对象，包含生成和验证JWT所需的配置信息
+ */
+    public JwtUtil(JwtConfig jwtConfig) {
+    // 将传入的JWT配置对象赋值给实例变量
+        this.jwtConfig = jwtConfig;
+    }
 
     /**
      * 从 JWT 令牌中提取用户名
@@ -66,11 +73,11 @@ public class JwtUtil {
      * @return 所有声明
      */
     private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSignInKey())
+        return Jwts.parser()
+                .verifyWith(Keys.hmacShaKeyFor(jwtConfig.getSecret().getBytes()))
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     /**
@@ -86,12 +93,12 @@ public class JwtUtil {
     /**
      * 根据用户详细信息生成 JWT 令牌
      *
-     * @param userDetails 用户详细信息
+     * @param userLoginDTO 用户详细信息
      * @return 生成的 JWT 令牌
      */
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserLoginDTO userLoginDTO) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername());
+        return createToken(claims, userLoginDTO.getUsername());
     }
 
     /**
@@ -103,11 +110,11 @@ public class JwtUtil {
      */
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(SignatureAlgorithm.HS256, getSignInKey())
+                .claims(claims)
+                .subject(subject)
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + jwtConfig.getExpiration()))
+                .signWith(Keys.hmacShaKeyFor(jwtConfig.getSecret().getBytes()), Jwts.SIG.HS256)
                 .compact();
     }
 
@@ -141,7 +148,7 @@ public class JwtUtil {
      * @return 签名密钥字节数组
      */
     private byte[] getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secret);
+        byte[] keyBytes = Decoders.BASE64.decode(jwtConfig.getSecret());
         return Keys.hmacShaKeyFor(keyBytes).getEncoded();
     }
 }

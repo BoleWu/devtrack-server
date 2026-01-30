@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
         }
         
         // 生成JWT令牌
-
+        String token = jwtUtil.generateToken(userLoginDTO);
 
         // 记录登录成功日志
         HttpServletRequest request = getCurrentRequest();
@@ -108,6 +108,8 @@ public class UserServiceImpl implements UserService {
         // 构建登录响应对象
         LoginVO loginVO = new LoginVO();
         loginVO.setMessage("登录成功");
+        loginVO.setUsername(userLoginDTO.getUsername());
+        loginVO.setToken(token);
 
         return loginVO;
     }

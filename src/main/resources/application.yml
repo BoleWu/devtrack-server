@@ -25,7 +25,7 @@ mybatis-plus:
 
 # JWT Configuration
 jwt:
-  secret: devtrackSecretKey
+  secret: Hh1V+v2APwxTS90/PQpLjbpyXbGdtfXGzmJs1YQMbEw=
   expiration: 86400000
 # Security Configuration
 
@@ -39,5 +39,13 @@ handler:
       - /health
       - /error
       - /
+      - /swagger-ui/**
     class-names:
       - com.devtrack.interceptor.AuthenticationInterceptor
+# 日志
+logging:
+  level:
+    root: info
+  file:
+    name: logs/devtrack.common.log.app.log
+  

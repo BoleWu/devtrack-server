@@ -1,6 +1,7 @@
 package com.devtrack.config;
 
 import com.devtrack.interceptor.AuthenticationInterceptor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -10,22 +11,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * 注册身份验证拦截器
  */
 @Configuration
+@EnableConfigurationProperties(InterceptorProperties.class)
 public class InterceptorConfig implements WebMvcConfigurer {
 
     private final AuthenticationInterceptor authenticationInterceptor;
+    private final InterceptorProperties interceptorProperties;
 
-    public InterceptorConfig(AuthenticationInterceptor authenticationInterceptor) {
+    public InterceptorConfig(AuthenticationInterceptor authenticationInterceptor, InterceptorProperties interceptorProperties) {
         this.authenticationInterceptor = authenticationInterceptor;
+        this.interceptorProperties = interceptorProperties;
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 注册身份验证拦截器，排除不需要验证的路径
-        registry.addInterceptor(authenticationInterceptor)
-                .excludePathPatterns("/api/auth/login")      // 登录接口
-                .excludePathPatterns("/api/auth/register")   // 注册接口
-                .excludePathPatterns("/health")              // 健康检查
-                .excludePathPatterns("/error")               // 错误页面
-                .excludePathPatterns("/");                   // 主页
+        if (interceptorProperties.isEnable()) {
+            // 注册身份验证拦截器，使用配置的排除路径
+            registry.addInterceptor(authenticationInterceptor)
+                    .excludePathPatterns(interceptorProperties.getExcludeUrls().toArray(new String[0]));
+        }
     }
 }
