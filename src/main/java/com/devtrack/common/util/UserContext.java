@@ -1,6 +1,8 @@
 package com.devtrack.common.util;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserContext {
     private static final ThreadLocal<Long> USER_ID = new ThreadLocal<>();
     private static final ThreadLocal<String> ROLE = new ThreadLocal<>();
@@ -23,3 +25,4 @@ public class UserContext {
         ROLE.remove();
     }
 }
+

@@ -4,6 +4,7 @@ package com.devtrack.service.Impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.devtrack.common.exception.LoginException;
 import com.devtrack.common.exception.ServiceException;
+import com.devtrack.common.util.IpUtil;
 import com.devtrack.dto.UserLoginDTO;
 import com.devtrack.dto.UserRegisterDTO;
 import com.devtrack.entity.User;
@@ -12,11 +13,10 @@ import com.devtrack.service.UserService;
 import com.devtrack.service.log.LoginLogService;
 import com.devtrack.vo.LoginVO;
 import com.devtrack.vo.UserVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.devtrack.common.util.JwtUtil;
 
@@ -26,6 +26,8 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final LoginLogService loginLogService;
     private final JwtUtil jwtUtil;
+    @Autowired
+    private IpUtil ipUtil;
 
     public UserServiceImpl(UserMapper userMapper, PasswordEncoder passwordEncoder, LoginLogService loginLogService, JwtUtil jwtUtil) {
         this.userMapper = userMapper;
@@ -49,7 +51,11 @@ public class UserServiceImpl implements UserService {
         user.setStatus(1); // 默认启用状态
 
         // 保存用户到数据库
-        userMapper.insert(user);
+        int insert = userMapper.insert(user);
+        if (insert != 1) {
+            throw new ServiceException("注册失败");
+        }
+
     }
 
     @Override
@@ -58,8 +64,8 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUsername, userLoginDTO.getUsername()));
         if (user == null) {
             // 记录登录失败日志
-            HttpServletRequest request = getCurrentRequest();
-            String ip = getClientIpAddress(request);
+            HttpServletRequest request = ipUtil.getCurrentRequest();
+            String ip = ipUtil.getClientIpAddress(request);
             String userAgent = request != null ? request.getHeader("User-Agent") : "";
             loginLogService.recordLoginLog(
                     userLoginDTO.getUsername(),
@@ -74,8 +80,8 @@ public class UserServiceImpl implements UserService {
         // 检查密码是否正确
         if (!passwordEncoder.matches(userLoginDTO.getPassword(), user.getPassword())) {
             // 记录登录失败日志
-            HttpServletRequest request = getCurrentRequest();
-            String ip = getClientIpAddress(request);
+            HttpServletRequest request = ipUtil.getCurrentRequest();
+            String ip = ipUtil.getClientIpAddress(request);
             String userAgent = request != null ? request.getHeader("User-Agent") : "";
 
             loginLogService.recordLoginLog(
@@ -90,11 +96,11 @@ public class UserServiceImpl implements UserService {
         }
         
         // 生成JWT令牌
-        String token = jwtUtil.generateToken(userLoginDTO);
+        String token = jwtUtil.generateToken(user);
 
         // 记录登录成功日志
-        HttpServletRequest request = getCurrentRequest();
-        String ip = getClientIpAddress(request);
+        HttpServletRequest request = ipUtil.getCurrentRequest();
+        String ip = ipUtil.getClientIpAddress(request);
         String userAgent = request != null ? request.getHeader("User-Agent") : "";
 
         loginLogService.recordLoginLog(
@@ -128,35 +134,5 @@ public class UserServiceImpl implements UserService {
         userVO.setStatus(user.getStatus());
 
         return userVO;
-    }
-
-    private HttpServletRequest getCurrentRequest() {
-        try {
-            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-            return attributes != null ? attributes.getRequest() : null;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    private String getClientIpAddress(HttpServletRequest request) {
-        if (request == null) {
-            return "";
-        }
-
-        String xip = request.getHeader("X-Real-IP");
-        String xfor = request.getHeader("X-Forwarded-For");
-        if (xfor != null && !xfor.isEmpty() && !"unknown".equalsIgnoreCase(xfor)) {
-            int index = xfor.indexOf(",");
-            if (index != -1) {
-                return xfor.substring(0, index);
-            } else {
-                return xfor;
-            }
-        }
-        if (xip != null && !xip.isEmpty() && !"unknown".equalsIgnoreCase(xip)) {
-            return xip;
-        }
-        return request.getRemoteAddr();
     }
 }

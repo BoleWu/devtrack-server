@@ -4,11 +4,13 @@
 package com.devtrack.common.util;
 
 import com.devtrack.dto.UserLoginDTO;
+import com.devtrack.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -21,10 +23,13 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
+@Log4j2
 public class JwtUtil {
     private final JwtConfig jwtConfig;
 
-/**
+
+
+    /**
  * JwtUtil的构造函数，用于初始化JwtUtil实例
  * @param jwtConfig JWT配置对象，包含生成和验证JWT所需的配置信息
  */
@@ -93,12 +98,17 @@ public class JwtUtil {
     /**
      * 根据用户详细信息生成 JWT 令牌
      *
-     * @param userLoginDTO 用户详细信息
+     * @param user 用户详细信息
      * @return 生成的 JWT 令牌
      */
-    public String generateToken(UserLoginDTO userLoginDTO) {
+    public String generateToken(User user) {
+        log.info("生成token userId={}, role={}", user.getId(), user.getRole());
+
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userLoginDTO.getUsername());
+        claims.put("userId", user.getId());
+        claims.put("role", user.getRole());
+
+        return createToken(claims, user.getUsername());
     }
 
     /**
@@ -122,12 +132,34 @@ public class JwtUtil {
      * 验证 JWT 令牌是否有效
      *
      * @param token        JWT 令牌
-     * @param userDetails  用户详细信息
+     * @param user)  用户详细信息
      * @return 如果令牌有效则返回 true，否则返回 false
      */
-    public Boolean validateToken(String token, UserDetails userDetails) {
+
+    public Boolean validateToken(String token, User user) {
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return (username.equals(user.getUsername()) && !isTokenExpired(token));
+    }
+
+    /*
+    * 获取用户ID
+    *
+    * @param token JWT令牌
+    * @return 用户ID
+    * */
+    public Long extractUserId(String token) {
+        return extractAllClaims(token).get("userId", Long.class);
+    }
+
+    /*
+     * 获取用户角色
+     *
+     * @param token JWT令牌
+     * @return 角色
+     * */
+
+    public String extractRole(String token) {
+        return extractAllClaims(token).get("role", String.class);
     }
 
     /**
