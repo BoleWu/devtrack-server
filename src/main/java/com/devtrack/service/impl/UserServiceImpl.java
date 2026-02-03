@@ -1,4 +1,4 @@
-package com.devtrack.service.Impl;
+package com.devtrack.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -13,6 +13,7 @@ import com.devtrack.service.UserService;
 import com.devtrack.service.log.LoginLogService;
 import com.devtrack.vo.LoginVO;
 import com.devtrack.vo.UserVO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import com.devtrack.common.util.JwtUtil;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
@@ -29,12 +31,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private IpUtil ipUtil;
 
-    public UserServiceImpl(UserMapper userMapper, PasswordEncoder passwordEncoder, LoginLogService loginLogService, JwtUtil jwtUtil) {
-        this.userMapper = userMapper;
-        this.passwordEncoder = passwordEncoder;
-        this.loginLogService = loginLogService;
-        this.jwtUtil = jwtUtil;
-    }
 
     @Override
     public void register(UserRegisterDTO userRegisterDTO) {

@@ -1,4 +1,4 @@
-package com.devtrack.service.Impl.log;
+package com.devtrack.service.impl.log;
 
 import com.devtrack.entity.log.LoginLog;
 import com.devtrack.mapper.log.LoginLogMapper;
