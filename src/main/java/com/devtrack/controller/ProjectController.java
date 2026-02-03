@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class ProjectController {
     private final ProjectService projectService;
-    @PostMapping("/projects")
+    @PostMapping("/createproject")
     public ProjectVO createProject(@Validated @RequestBody ProjectDTO projectDTO) {
         return projectService.createProject(projectDTO);
     }
@@ -26,4 +26,11 @@ public class ProjectController {
     public ProjectVO getProjectById(@PathVariable Long projectId) {
         return projectService.getProjectById(projectId);
     }
+
+    //跳转到projects
+    @GetMapping("/project")
+    public String project() {
+        return "projects";
+    }
+
 }
