@@ -7,7 +7,9 @@ import com.devtrack.common.util.UserContext;
 import com.devtrack.dto.ProjectDTO;
 import com.devtrack.entity.Project;
 import com.devtrack.mapper.ProjectMapper;
+import com.devtrack.mapper.TaskMapper;
 import com.devtrack.service.ProjectService;
+import com.devtrack.vo.ProjectTaskStatsVO;
 import com.devtrack.vo.ProjectVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjectServiceImpl implements ProjectService {
     private final ProjectMapper projectMapper;
+    private final TaskMapper taskMapper;
 
     @Override
     public ProjectVO createProject(ProjectDTO projectDTO) {
@@ -62,5 +65,21 @@ public class ProjectServiceImpl implements ProjectService {
             throw new BusinessException("无权限访问");
         }
         return ProjectVO.fromEntity(project);
+    }
+
+    @Override
+    public ProjectTaskStatsVO getProjectStats(Long projectId) {
+        Long userId = UserContext.getUserId();
+        Project project = projectMapper.selectById(projectId);
+        if(project == null || project.getDeleted() == 1){
+            throw new BusinessException("项目不存在");
+        }
+        if(!project.getCreateBy().equals(userId)){
+            throw new BusinessException("无查看权限");
+        }
+        ProjectTaskStatsVO vo = taskMapper.statsByProject(projectId);
+        vo.setProjectId(projectId);
+        vo.setProgress(vo.getTotal() == 0 ? 0 : vo.getDone() * 1.0 / vo.getTotal());
+        return vo;
     }
 }

@@ -11,9 +11,6 @@ public class TaskVO {
     private String title;
     private String description;
     private String status;
-    private Integer deleted;
-
-
     public static TaskVO fromEntity(Task task) {
         TaskVO taskVO = new TaskVO();
         taskVO.setId(task.getId());
@@ -21,7 +18,8 @@ public class TaskVO {
         taskVO.setTitle(task.getTitle());
         taskVO.setDescription(task.getDescription());
         taskVO.setStatus(task.getStatus());
-        taskVO.setDeleted(task.getDeleted());
         return taskVO;
     }
+
+
 }

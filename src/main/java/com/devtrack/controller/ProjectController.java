@@ -2,6 +2,7 @@ package com.devtrack.controller;
 
 import com.devtrack.dto.ProjectDTO;
 import com.devtrack.service.ProjectService;
+import com.devtrack.vo.ProjectTaskStatsVO;
 import com.devtrack.vo.ProjectVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -30,7 +31,11 @@ public class ProjectController {
     //跳转到projects
     @GetMapping("/project")
     public String project() {
-        return "projects";
+        return "redirect:/api/projects";
+    }
+    @GetMapping("/projects/{id}/stats")
+    public ProjectTaskStatsVO projectStats(@PathVariable Long id) {
+        return projectService.getProjectStats(id);
     }
 
 }
