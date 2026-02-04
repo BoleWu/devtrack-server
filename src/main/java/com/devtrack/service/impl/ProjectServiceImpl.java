@@ -9,8 +9,7 @@ import com.devtrack.entity.Project;
 import com.devtrack.mapper.ProjectMapper;
 import com.devtrack.mapper.TaskMapper;
 import com.devtrack.service.ProjectService;
-import com.devtrack.vo.ProjectTaskStatsVO;
-import com.devtrack.vo.ProjectVO;
+import com.devtrack.vo.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -81,5 +80,24 @@ public class ProjectServiceImpl implements ProjectService {
         vo.setProjectId(projectId);
         vo.setProgress(vo.getTotal() == 0 ? 0 : vo.getDone() * 1.0 / vo.getTotal());
         return vo;
+    }
+
+    @Override
+    public ProjectProgressVO progress(Long projectId) {
+        ProjectTaskStatsVO status = taskMapper.statsByProject(projectId);
+        ProjectProgressVO vo = new ProjectProgressVO();
+        vo.setTotal(status.getTotal());
+        vo.setDone(status.getDone());
+        vo.setProgress(status.getTotal() == 0 ? 0 : status.getDone() * 1.0 / status.getTotal());
+        return vo;
+    }
+
+    @Override
+    public List<BurnDownPointVO> burndown(Long projectId) {
+        return  taskMapper.burndown(projectId);
+    }
+    @Override
+    public List<GanttVO> gantt(Long id){
+        return taskMapper.gantt(id);
     }
 }

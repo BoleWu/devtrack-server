@@ -2,8 +2,7 @@ package com.devtrack.controller;
 
 import com.devtrack.dto.ProjectDTO;
 import com.devtrack.service.ProjectService;
-import com.devtrack.vo.ProjectTaskStatsVO;
-import com.devtrack.vo.ProjectVO;
+import com.devtrack.vo.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -12,30 +11,36 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/projects")
 public class ProjectController {
     private final ProjectService projectService;
     @PostMapping("/createproject")
     public ProjectVO createProject(@Validated @RequestBody ProjectDTO projectDTO) {
         return projectService.createProject(projectDTO);
     }
-    @GetMapping("/projects")
+    @GetMapping("/getProjectByList")
     public List<ProjectVO> listMyProjects() {
         return projectService.listMyProjects();
     }
-    @GetMapping("/projects/{projectId}")
+    @GetMapping("/{projectId}")
     public ProjectVO getProjectById(@PathVariable Long projectId) {
         return projectService.getProjectById(projectId);
     }
 
-    //跳转到projects
-    @GetMapping("/project")
-    public String project() {
-        return "redirect:/api/projects";
-    }
-    @GetMapping("/projects/{id}/stats")
+    @GetMapping("/{id}/stats")
     public ProjectTaskStatsVO projectStats(@PathVariable Long id) {
         return projectService.getProjectStats(id);
     }
-
+    @GetMapping("/{id}/progress")
+    public ProjectProgressVO progress(@PathVariable Long id) {
+        return projectService.progress(id);
+    }
+    @GetMapping("/{id}/burndown")
+    public List<BurnDownPointVO> burndown(@PathVariable Long id) {
+        return projectService.burndown(id);
+    }
+    @GetMapping("/{id}/gantt")
+    public List<GanttVO> gantt(@PathVariable Long id) {
+        return projectService.gantt(id);
+    }
 }

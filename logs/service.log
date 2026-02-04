@@ -1,0 +1,106 @@
+2026-02-03 23:04:01.569 [main] INFO  c.devtrack.DevtrackServerApplication - Starting DevtrackServerApplication using Java 17.0.17 with PID 28144 (E:\JavaCode\devtrack-server\target\classes started by Friday in E:\JavaCode\devtrack-server)
+2026-02-03 23:04:01.571 [main] INFO  c.devtrack.DevtrackServerApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-03 23:04:02.251 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-02-03 23:04:02.251 [main] INFO  o.a.c.core.AprLifecycleListener - An older version [1.3.1] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [2.0.1]
+2026-02-03 23:04:02.251 [main] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.3.1] using APR version [1.7.4].
+2026-02-03 23:04:02.254 [main] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+2026-02-03 23:04:02.259 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-03 23:04:02.259 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
+2026-02-03 23:04:02.309 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-02-03 23:04:02.309 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 713 ms
+2026-02-03 23:04:02.344 [main] WARN  o.s.c.LocalVariableTableParameterNameDiscoverer - Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.devtrack.common.util.JwtUtil
+2026-02-03 23:04:02.370 [main] WARN  o.s.c.LocalVariableTableParameterNameDiscoverer - Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.devtrack.config.InterceptorConfig
+2026-02-03 23:04:02.912 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@615e83ac, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4438938e, org.springframework.security.web.context.SecurityContextHolderFilter@25e8e59, org.springframework.security.web.header.HeaderWriterFilter@7e18ced7, org.springframework.web.filter.CorsFilter@4e50ae56, org.springframework.security.web.authentication.logout.LogoutFilter@5773d271, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@50a7c72b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@32a8ca06, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1c68d0db, org.springframework.security.web.access.ExceptionTranslationFilter@5d5d3a5c, org.springframework.security.web.access.intercept.AuthorizationFilter@4ebd6fd6]
+2026-02-03 23:04:03.051 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2026-02-03 23:04:03.058 [main] INFO  c.devtrack.DevtrackServerApplication - Started DevtrackServerApplication in 1.774 seconds (process running for 2.068)
+2026-02-03 23:04:08.100 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-03 23:04:08.102 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-02-03 23:04:08.102 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-02-03 23:04:30.731 [main] INFO  c.devtrack.DevtrackServerApplication - Starting DevtrackServerApplication using Java 17.0.17 with PID 9456 (E:\JavaCode\devtrack-server\target\classes started by Friday in E:\JavaCode\devtrack-server)
+2026-02-03 23:04:30.732 [main] INFO  c.devtrack.DevtrackServerApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-03 23:04:31.413 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-02-03 23:04:31.414 [main] INFO  o.a.c.core.AprLifecycleListener - An older version [1.3.1] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [2.0.1]
+2026-02-03 23:04:31.414 [main] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.3.1] using APR version [1.7.4].
+2026-02-03 23:04:31.416 [main] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+2026-02-03 23:04:31.421 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-03 23:04:31.421 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
+2026-02-03 23:04:31.465 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-02-03 23:04:31.466 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 709 ms
+2026-02-03 23:04:31.500 [main] WARN  o.s.c.LocalVariableTableParameterNameDiscoverer - Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.devtrack.common.util.JwtUtil
+2026-02-03 23:04:31.524 [main] WARN  o.s.c.LocalVariableTableParameterNameDiscoverer - Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.devtrack.config.InterceptorConfig
+2026-02-03 23:04:32.030 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4f26425b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@f03ee8f, org.springframework.security.web.context.SecurityContextHolderFilter@22865072, org.springframework.security.web.header.HeaderWriterFilter@60928a61, org.springframework.web.filter.CorsFilter@40dd552c, org.springframework.security.web.authentication.logout.LogoutFilter@675ec28b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5d5d3a5c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4601047, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@33f4c769, org.springframework.security.web.access.ExceptionTranslationFilter@25214797, org.springframework.security.web.access.intercept.AuthorizationFilter@76e6c070]
+2026-02-03 23:04:32.157 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2026-02-03 23:04:32.163 [main] INFO  c.devtrack.DevtrackServerApplication - Started DevtrackServerApplication in 1.694 seconds (process running for 1.988)
+2026-02-03 23:04:35.567 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-03 23:04:35.567 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-02-03 23:04:35.570 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-02-03 23:04:38.862 [http-nio-8080-exec-2] INFO  c.d.i.AuthenticationInterceptor - 开始了----------------------
+2026-02-03 23:04:38.865 [http-nio-8080-exec-2] INFO  c.d.i.AuthenticationInterceptor - authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6Miwic3ViIjoiYWRtaW4iLCJpYXQiOjE3NzAxMzA1NTUsImV4cCI6MTc3MDIxNjk1NX0.WdkdDOe5AOEnLjCblznKp2Bj79pEiBIYghJvhrkZIlU
+2026-02-03 23:04:38.993 [http-nio-8080-exec-2] INFO  c.d.i.AuthenticationInterceptor - 上下文注入 userId=2, role=USER
+2026-02-03 23:04:57.757 [http-nio-8080-exec-3] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-02-03 23:04:57.907 [http-nio-8080-exec-3] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2ba43acc
+2026-02-03 23:04:57.908 [http-nio-8080-exec-3] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-02-03 23:04:58.007 [http-nio-8080-exec-3] INFO  com.devtrack.common.util.JwtUtil - 生成token userId=2, role=USER
+2026-02-03 23:04:58.110 [http-nio-8080-exec-7] INFO  c.d.i.AuthenticationInterceptor - 开始了----------------------
+2026-02-03 23:04:58.111 [http-nio-8080-exec-7] INFO  c.d.i.AuthenticationInterceptor - authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6Miwic3ViIjoiYWRtaW4iLCJpYXQiOjE3NzAxMzEwOTgsImV4cCI6MTc3MDIxNzQ5OH0.-mlTdjKLetHNcomLj5CLFu33fmlT-_vKlDVPROQOqlU
+2026-02-03 23:04:58.114 [http-nio-8080-exec-7] INFO  c.d.i.AuthenticationInterceptor - 上下文注入 userId=2, role=USER
+2026-02-03 23:07:10.365 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-02-03 23:07:10.369 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-02-03 23:07:12.952 [main] INFO  c.devtrack.DevtrackServerApplication - Starting DevtrackServerApplication using Java 17.0.17 with PID 11864 (E:\JavaCode\devtrack-server\target\classes started by Friday in E:\JavaCode\devtrack-server)
+2026-02-03 23:07:12.953 [main] INFO  c.devtrack.DevtrackServerApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-03 23:07:13.590 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-02-03 23:07:13.591 [main] INFO  o.a.c.core.AprLifecycleListener - An older version [1.3.1] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [2.0.1]
+2026-02-03 23:07:13.591 [main] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.3.1] using APR version [1.7.4].
+2026-02-03 23:07:13.593 [main] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+2026-02-03 23:07:13.598 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-03 23:07:13.598 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
+2026-02-03 23:07:13.643 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-02-03 23:07:13.644 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 666 ms
+2026-02-03 23:07:13.676 [main] WARN  o.s.c.LocalVariableTableParameterNameDiscoverer - Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.devtrack.common.util.JwtUtil
+2026-02-03 23:07:13.698 [main] WARN  o.s.c.LocalVariableTableParameterNameDiscoverer - Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.devtrack.config.InterceptorConfig
+2026-02-03 23:07:14.331 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4d43a1b7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5b14f482, org.springframework.security.web.context.SecurityContextHolderFilter@7e2c6702, org.springframework.security.web.header.HeaderWriterFilter@3af36922, org.springframework.web.filter.CorsFilter@19705650, org.springframework.security.web.authentication.logout.LogoutFilter@597a7afa, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6734ff92, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6ee37ca7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1a785fd5, org.springframework.security.web.access.ExceptionTranslationFilter@18c7f6b5, org.springframework.security.web.access.intercept.AuthorizationFilter@7ead1d80]
+2026-02-03 23:07:14.468 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2026-02-03 23:07:14.474 [main] INFO  c.devtrack.DevtrackServerApplication - Started DevtrackServerApplication in 1.766 seconds (process running for 2.043)
+2026-02-03 23:07:18.801 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-03 23:07:18.802 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-02-03 23:07:18.804 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-02-03 23:07:18.848 [http-nio-8080-exec-1] INFO  c.d.i.AuthenticationInterceptor - 开始了----------------------
+2026-02-03 23:07:18.850 [http-nio-8080-exec-1] INFO  c.d.i.AuthenticationInterceptor - authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6Miwic3ViIjoiYWRtaW4iLCJpYXQiOjE3NzAxMzEwOTgsImV4cCI6MTc3MDIxNzQ5OH0.-mlTdjKLetHNcomLj5CLFu33fmlT-_vKlDVPROQOqlU
+2026-02-03 23:07:18.851 [http-nio-8080-exec-1] INFO  c.d.i.AuthenticationInterceptor - url------------>/api/dashboard/home
+2026-02-03 23:07:18.989 [http-nio-8080-exec-1] INFO  c.d.i.AuthenticationInterceptor - 上下文注入 userId=2, role=USER
+2026-02-03 23:08:30.631 [main] INFO  c.devtrack.DevtrackServerApplication - Starting DevtrackServerApplication using Java 17.0.17 with PID 27344 (E:\JavaCode\devtrack-server\target\classes started by Friday in E:\JavaCode\devtrack-server)
+2026-02-03 23:08:30.633 [main] INFO  c.devtrack.DevtrackServerApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-03 23:08:31.280 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-02-03 23:08:31.280 [main] INFO  o.a.c.core.AprLifecycleListener - An older version [1.3.1] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [2.0.1]
+2026-02-03 23:08:31.280 [main] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.3.1] using APR version [1.7.4].
+2026-02-03 23:08:31.283 [main] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+2026-02-03 23:08:31.288 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-03 23:08:31.288 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
+2026-02-03 23:08:31.339 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-02-03 23:08:31.339 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 683 ms
+2026-02-03 23:08:31.378 [main] WARN  o.s.c.LocalVariableTableParameterNameDiscoverer - Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.devtrack.common.util.JwtUtil
+2026-02-03 23:08:31.410 [main] WARN  o.s.c.LocalVariableTableParameterNameDiscoverer - Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.devtrack.config.InterceptorConfig
+2026-02-03 23:08:31.986 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6a6da47a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@8f39224, org.springframework.security.web.context.SecurityContextHolderFilter@1412682c, org.springframework.security.web.header.HeaderWriterFilter@7fc7152e, org.springframework.web.filter.CorsFilter@7f642bf, org.springframework.security.web.authentication.logout.LogoutFilter@1182413a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@54a056e4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4cb00fa5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@43e3a390, org.springframework.security.web.access.ExceptionTranslationFilter@74500e4f, org.springframework.security.web.access.intercept.AuthorizationFilter@5546e754]
+2026-02-03 23:08:32.115 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2026-02-03 23:08:32.122 [main] INFO  c.devtrack.DevtrackServerApplication - Started DevtrackServerApplication in 1.742 seconds (process running for 2.029)
+2026-02-03 23:08:43.789 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-03 23:08:43.790 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-02-03 23:08:43.793 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-02-03 23:11:09.472 [main] INFO  c.devtrack.DevtrackServerApplication - Starting DevtrackServerApplication using Java 17.0.17 with PID 24352 (E:\JavaCode\devtrack-server\target\classes started by Friday in E:\JavaCode\devtrack-server)
+2026-02-03 23:11:09.473 [main] INFO  c.devtrack.DevtrackServerApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-03 23:11:10.133 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2026-02-03 23:11:10.133 [main] INFO  o.a.c.core.AprLifecycleListener - An older version [1.3.1] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [2.0.1]
+2026-02-03 23:11:10.133 [main] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.3.1] using APR version [1.7.4].
+2026-02-03 23:11:10.136 [main] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 3.0.14 4 Jun 2024]
+2026-02-03 23:11:10.140 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-03 23:11:10.140 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
+2026-02-03 23:11:10.184 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-02-03 23:11:10.185 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 688 ms
+2026-02-03 23:11:10.228 [main] WARN  o.s.c.LocalVariableTableParameterNameDiscoverer - Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.devtrack.common.util.JwtUtil
+2026-02-03 23:11:10.252 [main] WARN  o.s.c.LocalVariableTableParameterNameDiscoverer - Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.devtrack.config.InterceptorConfig
+2026-02-03 23:11:10.785 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6a6da47a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@8f39224, org.springframework.security.web.context.SecurityContextHolderFilter@1412682c, org.springframework.security.web.header.HeaderWriterFilter@7fc7152e, org.springframework.web.filter.CorsFilter@7f642bf, org.springframework.security.web.authentication.logout.LogoutFilter@1182413a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@54a056e4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4cb00fa5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@43e3a390, org.springframework.security.web.access.ExceptionTranslationFilter@74500e4f, org.springframework.security.web.access.intercept.AuthorizationFilter@5546e754]
+2026-02-03 23:11:10.911 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2026-02-03 23:11:10.918 [main] INFO  c.devtrack.DevtrackServerApplication - Started DevtrackServerApplication in 1.691 seconds (process running for 1.99)
+2026-02-03 23:11:14.682 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-03 23:11:14.683 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-02-03 23:11:14.684 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms

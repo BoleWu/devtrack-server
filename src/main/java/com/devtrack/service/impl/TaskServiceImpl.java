@@ -14,13 +14,14 @@ import com.devtrack.mapper.MemberMapper;
 import com.devtrack.mapper.ProjectMapper;
 import com.devtrack.mapper.TaskMapper;
 import com.devtrack.service.TaskService;
-import com.devtrack.vo.ProjectTaskStatsVO;
+import com.devtrack.vo.BurnDownPointVO;
 import com.devtrack.vo.TaskVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +29,8 @@ public class TaskServiceImpl implements TaskService {
     private final TaskMapper taskMapper;
     private final ProjectMapper projectMapper;
     private final MemberMapper projectMemberMapper;
+    private final OpLogServiceImpl OpLogServiceImpl;
+
 
     @Override
     public List<TaskVO> getTaskByAll() {
@@ -89,8 +92,14 @@ public class TaskServiceImpl implements TaskService {
     public void assign(Long taskId, Long userId) {
         Task task = taskMapper.selectById(taskId);
         checkProjectMember(task.getProjectId(), userId);
+        String oldAssing = task.getAssigneeId() == null ? "" : task.getAssigneeId().toString();
         task.setAssigneeId(userId);
         taskMapper.updateById(task);
+        Map<String, Object> detail = Map.of(
+                "from", oldAssing,
+                "to", userId
+        );
+        OpLogServiceImpl.log("TASK", taskId, "ASSIGN", detail);
     }
     private void checkProjectMember(Long projectId, Long userId) {
         boolean exists = projectMemberMapper.exists(
@@ -99,7 +108,10 @@ public class TaskServiceImpl implements TaskService {
                         .eq(ProjectMember::getUserId, userId)
                         .eq(ProjectMember::getDeleted, 0)
         );
-        if (!exists) throw new BusinessException("你不是该项目成员");
+        if (!exists) {
+            throw new BusinessException("你不是该项目成员");
+        }
     }
+
 
 }

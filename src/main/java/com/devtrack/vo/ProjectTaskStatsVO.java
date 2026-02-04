@@ -12,5 +12,6 @@ public class ProjectTaskStatsVO {
     private Integer done;
     private Integer blocked;
     private Integer overdue;
-    private Double progress; // 完成率 %
+    // 完成率 %
+    private Double progress;
 }

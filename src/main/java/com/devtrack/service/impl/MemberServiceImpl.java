@@ -32,15 +32,4 @@ public class MemberServiceImpl implements MemberService {
         memberMapper.insert(projectMember);
     }
 
-
-    public void checkProjectMember(Long projectId, Long userId) {
-        boolean exists = memberMapper.exists(new LambdaQueryWrapper<ProjectMember>()
-                .eq(ProjectMember::getProjectId, projectId)
-                .eq(ProjectMember::getUserId, userId)
-                .eq(ProjectMember::getDeleted, 0)
-        );
-        if (!exists){
-            throw new BusinessException("你不是该项目成员");
-        }
-    }
 }
