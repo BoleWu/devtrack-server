@@ -37,7 +37,8 @@ public class SecurityConfig {
                         "/swagger-ui/**",
                         "/v3/api-docs",
                         "/v3/api-docs/**",
-                        "/v3/**"
+                        "/v3/**",
+                        "/api/**"
                 ).permitAll() // 允许无需认证的请求
                 .anyRequest().authenticated() // 其他请求需要认证
             );
