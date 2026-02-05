@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(LoginException.class)
     public R<?> handleLoginException(LoginException e) {
-        return R.fail(e.getMessage());
+        return R.fail("失败",e.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -67,6 +67,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public R<?> handleException(Exception e) {
-        return R.fail(e.getMessage());
+        return R.fail("失败",e.getMessage());
     }
 }

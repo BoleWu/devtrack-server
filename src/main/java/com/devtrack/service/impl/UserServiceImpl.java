@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void register(UserRegisterDTO userRegisterDTO) {
+    public UserVO register(UserRegisterDTO userRegisterDTO) {
         // 检查用户名是否已存在
         if (userMapper.exists(new LambdaQueryWrapper<User>().eq(User::getUsername, userRegisterDTO.getUsername()))) {
             throw new ServiceException("用户名已存在");
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         if (insert != 1) {
             throw new ServiceException("注册失败");
         }
-
+        return UserVO.fromEntity(user);
     }
 
     @Override
@@ -109,10 +109,8 @@ public class UserServiceImpl implements UserService {
 
         // 构建登录响应对象
         LoginVO loginVO = new LoginVO();
-        loginVO.setMessage("登录成功");
         loginVO.setUsername(userLoginDTO.getUsername());
         loginVO.setToken(token);
-
         return loginVO;
     }
 

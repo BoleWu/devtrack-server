@@ -26,14 +26,14 @@ public class UserController {
     private final UserService userService;
     
     @PostMapping("/register")
-    public R<?> register(@Validated @RequestBody UserRegisterDTO dto){
-        userService.register(dto);
-        return R.ok("注册成功");
+    public R<UserVO> register(@Validated @RequestBody UserRegisterDTO dto){
+       return R.success(userService.register(dto));
+
     }
     @PostMapping("/login")
-    public LoginVO login(@Validated @RequestBody UserLoginDTO logindto, HttpServletRequest request) {
+    public R<LoginVO> login(@Validated @RequestBody UserLoginDTO logindto, HttpServletRequest request) {
         //        return R.ok(loginVO);
-        return userService.login(logindto);
+        return R.success(userService.login(logindto));
     }
     
     @GetMapping("/profile")
@@ -41,6 +41,6 @@ public class UserController {
         // 实际应用中这里会从认证上下文中获取用户ID
         // 这里为了演示使用固定ID
         UserVO userVO = userService.getUserInfo(1L);
-        return R.ok(userVO);
+        return R.success(userVO);
     }
 }

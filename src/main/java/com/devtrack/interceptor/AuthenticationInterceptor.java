@@ -28,6 +28,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 获取Authorization头
         log.info("开始了----------------------");
+        log.info("url---------------------->{}",request.getRequestURI());
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             return true;
         }

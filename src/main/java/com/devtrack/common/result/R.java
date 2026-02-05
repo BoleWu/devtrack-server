@@ -11,24 +11,24 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 public class R<T> {
-    private int errorCode;
+    private int code;
     private String message;
     private long time;
     private T responseBody;
 
-    public R(int errorCode, String message, T responseBody) {
-        this.errorCode = errorCode;
+    public R(int code, String message, T responseBody) {
+        this.code = code;
         this.message = message;
         this.responseBody = responseBody;
         this.time = System.currentTimeMillis();
     }
 
-    public static <T> R<T> ok(T data){
-        return new R<>(200, "success", data);
+    public static <T> R<T> success(T data){
+        return new R<>(0, "success", data);
     }
 
-    public static <T> R<T> fail(String message){
-        return new R<>(200, message, null);
+    public static <T> R<T> fail(String message, T data){
+        return new R<>(200, message, data);
     }
     public static R<?> error(String message){
         return new R<>(404, message, null);

@@ -9,7 +9,7 @@ import com.devtrack.vo.UserVO;
 
 
 public interface UserService {
-    void register(UserRegisterDTO userRegisterDTO);
+    UserVO register(UserRegisterDTO userRegisterDTO);
     LoginVO login(UserLoginDTO userLoginDTO);
     UserVO getUserInfo(Long userId);
 }

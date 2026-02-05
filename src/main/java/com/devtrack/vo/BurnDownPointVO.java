@@ -9,6 +9,6 @@ import lombok.Data;
 
 @Data
 public class BurnDownPointVO {
-    private Data day;
+    private String day;
     private Integer remain;
 }

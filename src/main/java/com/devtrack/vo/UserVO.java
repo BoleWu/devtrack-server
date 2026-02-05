@@ -1,5 +1,6 @@
 package com.devtrack.vo;
 
+import com.devtrack.entity.User;
 import lombok.Data;
 
 /**
@@ -13,4 +14,13 @@ public class UserVO {
     private Integer status;
     private String createTime;
     // 注意：不包含密码等敏感信息
+
+    public static UserVO fromEntity(User user) {
+        UserVO userVO = new UserVO();
+        userVO.setId(user.getId());
+        userVO.setUsername(user.getUsername());
+        userVO.setRole(user.getRole());
+        userVO.setStatus(user.getStatus());
+        return userVO;
+    }
 }

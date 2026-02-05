@@ -29,22 +29,31 @@ public interface TaskMapper extends BaseMapper<Task> {
 
 
     @Select("""
+            <script>
             SELECT DATE(create_time) day,
                    COUNT(*) remain
             FROM task
-            WHERE project_id = #{projectId}
+            <if test="projectId != null and projectId !=''">
+                    AND project_id = #{projectId}
+                </if>
             GROUP BY day
             ORDER BY day
+            </script>
             """)
     List<BurnDownPointVO> burndown(Long projectId);
 
     @Select("""
-            SELECT DATE(create_time) day,
-                   COUNT(*) remain
+            <script>
+            SELECT id,
+                   title name,
+                   create_time start,
+                   deadline end,
+                   status
             FROM task
-            WHERE project_id = #{projectId}
-            GROUP BY day
-            ORDER BY day;
+            <if test="projectId != null and projectId !=''">
+            WHERE project_id = #{projectId};
+            </if>
+            </script>
             """)
-    List<GanttVO> gantt(Long id);
+    List<GanttVO> gantt(Long projectId);
 }
