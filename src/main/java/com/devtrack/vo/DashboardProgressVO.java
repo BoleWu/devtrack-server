@@ -8,4 +8,5 @@ public class DashboardProgressVO {
     private String projectName;
     private Integer totalTasks;
     private Integer progress;
+    private Integer completedTasks;
 }

@@ -6,6 +6,7 @@ import com.devtrack.common.exception.BusinessException;
 import com.devtrack.common.util.UserContext;
 import com.devtrack.dto.ProjectDTO;
 import com.devtrack.entity.Project;
+import com.devtrack.mapper.MemberMapper;
 import com.devtrack.mapper.ProjectMapper;
 import com.devtrack.mapper.TaskMapper;
 import com.devtrack.service.ProjectService;
@@ -21,6 +22,7 @@ import java.util.List;
 public class ProjectServiceImpl implements ProjectService {
     private final ProjectMapper projectMapper;
     private final TaskMapper taskMapper;
+    private final MemberMapper menmberMapper;
 
     @Override
     public ProjectVO createProject(ProjectDTO projectDTO) {
@@ -43,13 +45,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<ProjectVO> listMyProjects() {
         Long userId = UserContext.getUserId();
-        List<Project> projects = projectMapper.selectList(
-                new LambdaQueryWrapper<Project>()
-                        .eq(Project::getCreateBy, userId)
-                        .eq(Project::getDeleted, 0)
-                        .orderByDesc(Project::getCreateTime)
-        );
-        return projects.stream().map(ProjectVO::fromEntity).toList();
+        return projectMapper.getUserProjectsByList(userId);
     }
 
     @Override

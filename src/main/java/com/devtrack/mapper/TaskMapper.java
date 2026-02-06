@@ -34,7 +34,7 @@ public interface TaskMapper extends BaseMapper<Task> {
                    COUNT(*) remain
             FROM task
             <if test="projectId != null and projectId !=''">
-                    AND project_id = #{projectId}
+                    WHERE project_id = #{projectId}
                 </if>
             GROUP BY day
             ORDER BY day
