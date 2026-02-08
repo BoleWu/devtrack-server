@@ -1,10 +1,12 @@
 package com.devtrack.controller;
 
 import com.devtrack.common.result.R;
+import com.devtrack.dto.PageInfoDTO;
 import com.devtrack.dto.UserLoginDTO;
 import com.devtrack.dto.UserRegisterDTO;
 import com.devtrack.service.UserService;
 import com.devtrack.vo.LoginVO;
+import com.devtrack.vo.PageInfoVO;
 import com.devtrack.vo.UserVO;
 import lombok.RequiredArgsConstructor;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.validation.annotation.Validated;
-
-import javax.security.auth.login.LoginException;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -42,5 +42,9 @@ public class UserController {
         // 这里为了演示使用固定ID
         UserVO userVO = userService.getUserInfo(1L);
         return R.success(userVO);
+    }
+    @RequestMapping("/queryUserInfoByList")
+    public R<PageInfoVO> queryUserInfoByList(@Validated @RequestBody PageInfoDTO pageInfoDTO) {
+        return R.success(userService.getuserList(pageInfoDTO));
     }
 }

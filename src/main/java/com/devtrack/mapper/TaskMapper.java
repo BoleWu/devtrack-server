@@ -7,6 +7,7 @@ import com.devtrack.vo.BurnDownPointVO;
 import com.devtrack.vo.GanttVO;
 import com.devtrack.vo.ProjectTaskStatsVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -33,14 +34,18 @@ public interface TaskMapper extends BaseMapper<Task> {
             SELECT DATE(create_time) day,
                    COUNT(*) remain
             FROM task
-            <if test="projectId != null and projectId !=''">
-                    WHERE project_id = #{projectId}
-                </if>
+            WHERE assignee_id = #{userId}
+            <if test="id != null and id !=''">
+            AND project_id = #{id}
+            </if>
             GROUP BY day
             ORDER BY day
             </script>
             """)
-    List<BurnDownPointVO> burndown(Long projectId);
+    List<BurnDownPointVO> burndown(
+            @Param("id") Long id,
+            @Param("userId") Long userId
+    );
 
     @Select("""
             <script>
@@ -50,10 +55,14 @@ public interface TaskMapper extends BaseMapper<Task> {
                    deadline end,
                    status
             FROM task
-            <if test="projectId != null and projectId !=''">
-            WHERE project_id = #{projectId};
+            WHERE assignee_id = #{userId}
+            <if test="id != null and id !=''">
+            AND project_id = #{id}
             </if>
             </script>
             """)
-    List<GanttVO> gantt(Long projectId);
+    List<GanttVO> gantt(
+            @Param("id") Long id,
+            @Param("userId") Long userId
+    );
 }

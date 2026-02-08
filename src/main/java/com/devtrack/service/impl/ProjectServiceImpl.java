@@ -1,28 +1,35 @@
 package com.devtrack.service.impl;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.devtrack.common.exception.BusinessException;
+import com.devtrack.common.result.R;
 import com.devtrack.common.util.UserContext;
+import com.devtrack.dto.PageInfoDTO;
 import com.devtrack.dto.ProjectDTO;
+import com.devtrack.dto.UpdateProject;
 import com.devtrack.entity.Project;
 import com.devtrack.mapper.MemberMapper;
 import com.devtrack.mapper.ProjectMapper;
 import com.devtrack.mapper.TaskMapper;
 import com.devtrack.service.ProjectService;
+import com.devtrack.service.ProjectPermissionService;
 import com.devtrack.vo.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ProjectServiceImpl implements ProjectService {
     private final ProjectMapper projectMapper;
     private final TaskMapper taskMapper;
-    private final MemberMapper menmberMapper;
+    private final MemberMapper memberMapper;
+    private final ProjectPermissionService projectPermissionService;
 
     @Override
     public ProjectVO createProject(ProjectDTO projectDTO) {
@@ -43,22 +50,42 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectVO> listMyProjects() {
+    public PageInfoVO listMyProjects(PageInfoDTO pageInfoDTO) {
         Long userId = UserContext.getUserId();
-        return projectMapper.getUserProjectsByList(userId);
+        String name = pageInfoDTO.getName();
+        Integer pageArg = pageInfoDTO.getPage() == null ? pageInfoDTO.getPageNum() : pageInfoDTO.getPage();
+        Integer sizeArg = pageInfoDTO.getLimit() == null ? pageInfoDTO.getPageSize() : pageInfoDTO.getLimit();
+        int page = (pageArg == null || pageArg < 1) ? 1 : pageArg;
+        int limit = (sizeArg == null || sizeArg < 1) ? 10 : sizeArg;
+        int offset = (page - 1) * limit;
+        List<ProjectVO> list=projectMapper.getUserProjectsByList(userId,name,offset,limit);
+        List<Long> projectIds = list.stream().map(ProjectVO::getId).toList();
+        List<ProjectMemberVO> projectUserList=memberMapper.getProjectMemberList(projectIds);
+        Map<Long, List<JSONDataVO>> memberMap = projectUserList.stream()
+                .collect(Collectors.groupingBy(
+                        ProjectMemberVO::getId,
+                        Collectors.mapping(
+                                m -> {
+                                    JSONDataVO vo = new JSONDataVO();
+                                    vo.setId(m.getUserId());
+                                    vo.setName(m.getName());
+                                    return vo;
+                                },
+                                Collectors.toList()
+                        )
+                ));
+        list.forEach(projectVO -> {
+            projectVO.setMembers(memberMap.get(projectVO.getId()));
+        });
+        Integer total = projectMapper.totalProjects(userId, name);
+
+        return new PageInfoVO(list,total,page,limit);
     }
 
     @Override
     public ProjectVO getProjectById(Long projectId) {
+        projectPermissionService.assertAndGetOwnerOrAdmin(projectId);
         Project project = projectMapper.selectById(projectId);
-        if(project == null || project.getDeleted() == 1){
-            throw new BusinessException("项目不存在");
-        }
-        Long userId = UserContext.getUserId();
-        String role = UserContext.getRole();
-        if(!project.getCreateBy().equals(userId) && "admin".equals(role)){
-            throw new BusinessException("无权限访问");
-        }
         return ProjectVO.fromEntity(project);
     }
 
@@ -89,11 +116,22 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<BurnDownPointVO> burndown(Long projectId) {
-        return  taskMapper.burndown(projectId);
+    @Transactional
+    public void deleteProject(Long projectId){
+        projectMapper.markProjectAsDeleted(projectId);
+        memberMapper.markAllMembersAsDeleted(projectId);
     }
+
     @Override
-    public List<GanttVO> gantt(Long id){
-        return taskMapper.gantt(id);
+    public void updateProject(UpdateProject updateProject){
+        projectPermissionService.assertAndGetOwnerOrAdmin(updateProject.getId());
+        Project project = new Project();
+        project.setId(updateProject.getId());
+        project.setName(updateProject.getName());
+        project.setDescription(updateProject.getDescription());
+        project.setStatus(updateProject.getStatus());
+        project.setUpdateTime(LocalDateTime.now());
+        projectMapper.updateById(project);
     }
+
 }

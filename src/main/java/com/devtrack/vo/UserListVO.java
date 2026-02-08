@@ -8,8 +8,8 @@ import java.util.List;
  */
 @Data
 public class UserListVO {
-    private List<UserVO> users;
-    private Long total;
-    private Integer currentPage;
-    private Integer pageSize;
+    private Long id;
+    private String username;
+    private String role;
+    private String name;
 }

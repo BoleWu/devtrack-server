@@ -13,6 +13,7 @@ public class ProjectDTO {
 
     private String description;
 
-    private String status; // 可选：ACTIVE / DONE / ARCHIVED
+    // 可选：ACTIVE / DONE / ARCHIVED
+    private String status;
 }
 

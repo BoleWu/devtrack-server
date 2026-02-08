@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.devtrack.common.exception.LoginException;
 import com.devtrack.common.exception.ServiceException;
 import com.devtrack.common.util.IpUtil;
+import com.devtrack.dto.PageInfoDTO;
 import com.devtrack.dto.UserLoginDTO;
 import com.devtrack.dto.UserRegisterDTO;
 import com.devtrack.entity.User;
@@ -12,6 +13,8 @@ import com.devtrack.mapper.UserMapper;
 import com.devtrack.service.UserService;
 import com.devtrack.service.log.LoginLogService;
 import com.devtrack.vo.LoginVO;
+import com.devtrack.vo.PageInfoVO;
+import com.devtrack.vo.UserListVO;
 import com.devtrack.vo.UserVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,8 @@ import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpServletRequest;
 
 import com.devtrack.common.util.JwtUtil;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -42,9 +47,12 @@ public class UserServiceImpl implements UserService {
         // 创建用户实体并设置加密后的密码
         User user = new User();
         user.setUsername(userRegisterDTO.getUsername());
-        user.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword())); // 加密密码
-        user.setRole(userRegisterDTO.getRole()); // 默认角色
-        user.setStatus(1); // 默认启用状态
+        // 加密密码
+        user.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
+        // 默认角色
+        user.setRole(userRegisterDTO.getRole());
+        // 默认启用状态
+        user.setStatus(1);
 
         // 保存用户到数据库
         int insert = userMapper.insert(user);
@@ -121,12 +129,21 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("用户不存在");
         }
 
-        UserVO userVO = new UserVO();
-        userVO.setId(user.getId());
-        userVO.setUsername(user.getUsername());
-        userVO.setRole(user.getRole());
-        userVO.setStatus(user.getStatus());
-
-        return userVO;
+        return UserVO.fromEntity(user);
     }
+
+
+    @Override
+    public PageInfoVO getuserList(PageInfoDTO pageInfoDTO){
+        String name = pageInfoDTO.getName();
+        Integer pageArg = pageInfoDTO.getPage() == null ? pageInfoDTO.getPageNum() : pageInfoDTO.getPage();
+        Integer sizeArg = pageInfoDTO.getLimit() == null ? pageInfoDTO.getPageSize() : pageInfoDTO.getLimit();
+        Integer page = (pageArg == null || pageArg < 1) ? 1 : pageArg;
+        Integer limit = (sizeArg == null || sizeArg < 1) ? 10 : sizeArg;
+        Integer  offset= (page - 1) * limit;
+        List<UserListVO> userListVos=userMapper.userList(name,offset,limit);
+        Long total =userMapper.userListTotal(name);
+        return new PageInfoVO(userListVos,total,page,limit);
+    }
+
 }

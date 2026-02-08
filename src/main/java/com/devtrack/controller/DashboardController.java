@@ -2,12 +2,10 @@ package com.devtrack.controller;
 
 import com.devtrack.common.result.R;
 import com.devtrack.service.DashboardSetvice;
-import com.devtrack.service.ProjectService;
+import com.devtrack.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/dashboard")
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 public class DashboardController {
     private final DashboardSetvice dashboardSetvice;
-    private final ProjectService projectService;
+    private final TaskService taskService;
     @GetMapping("/stats")
     public R<?> dashboard() {
        return R.success(dashboardSetvice.getDashboardStats());
@@ -25,11 +23,11 @@ public class DashboardController {
         return R.success(dashboardSetvice.listProjectProgress());
     }
     @GetMapping("/burn-down")
-    public R<?> burndown(Long projectId){
-        return R.success(projectService.burndown(projectId));
+    public R<?> burndown(@RequestParam(required = false) Long id){
+        return R.success(taskService.burndown(id));
     }
     @GetMapping("/gantt")
-    public R<?> gantt(Long projectId){
-        return R.success(projectService.gantt(projectId));
+    public R<?> gantt(@RequestParam(required = false) Long id){
+        return R.success(taskService.gantt(id));
     }
 }

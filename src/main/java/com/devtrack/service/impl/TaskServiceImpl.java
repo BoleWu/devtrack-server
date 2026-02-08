@@ -14,8 +14,12 @@ import com.devtrack.mapper.MemberMapper;
 import com.devtrack.mapper.ProjectMapper;
 import com.devtrack.mapper.TaskMapper;
 import com.devtrack.service.TaskService;
+import com.devtrack.vo.BurnDownPointVO;
+import com.devtrack.vo.GanttVO;
 import com.devtrack.vo.TaskVO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,6 +28,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class TaskServiceImpl implements TaskService {
     private final TaskMapper taskMapper;
     private final ProjectMapper projectMapper;
@@ -111,6 +116,17 @@ public class TaskServiceImpl implements TaskService {
             throw new BusinessException("你不是该项目成员");
         }
     }
-
+    @Override
+    public List<BurnDownPointVO> burndown(Long projectId) {
+        Long userId = UserContext.getUserId();
+        List<BurnDownPointVO> list=taskMapper.burndown(projectId,userId);
+        log.debug("list: {}", list);
+        return  list;
+    }
+    @Override
+    public List<GanttVO> gantt( Long id){
+        Long userId = UserContext.getUserId();
+        return taskMapper.gantt(id,userId);
+    }
 
 }

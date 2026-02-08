@@ -3,11 +3,12 @@ package com.devtrack.vo;
 
 import com.devtrack.entity.Project;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 /**
  * 项目视图对象
+ * @author Friday
  */
 @Data
 public class ProjectVO {
@@ -17,6 +18,9 @@ public class ProjectVO {
     private String status;
     private String createTime;
     private String updateTime;
+    private Integer memberCount;
+    private String principal;
+    private List<JSONDataVO> members;
 
     public static ProjectVO fromEntity(Project project) {
         ProjectVO projectVO = new ProjectVO();
@@ -28,4 +32,5 @@ public class ProjectVO {
         projectVO.setUpdateTime(project.getUpdateTime().toString());
         return projectVO;
     }
+
 }
