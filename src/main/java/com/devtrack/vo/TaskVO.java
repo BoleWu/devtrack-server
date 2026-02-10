@@ -4,6 +4,8 @@ package com.devtrack.vo;
 import com.devtrack.entity.Task;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class TaskVO {
     private Long id;
@@ -11,6 +13,8 @@ public class TaskVO {
     private String title;
     private String description;
     private String status;
+    private Integer priority;
+    private LocalDateTime deadline;
     public static TaskVO fromEntity(Task task) {
         TaskVO taskVO = new TaskVO();
         taskVO.setId(task.getId());
@@ -18,6 +22,8 @@ public class TaskVO {
         taskVO.setTitle(task.getTitle());
         taskVO.setDescription(task.getDescription());
         taskVO.setStatus(task.getStatus());
+        taskVO.setPriority(task.getPriority());
+        taskVO.setDeadline(task.getDeadline());
         return taskVO;
     }
 

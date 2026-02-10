@@ -4,6 +4,7 @@ package com.devtrack.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.devtrack.entity.Project;
 import com.devtrack.vo.DashboardProgressVO;
+import com.devtrack.vo.JSONDataVO;
 import com.devtrack.vo.ProjectVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -116,4 +117,5 @@ public interface ProjectMapper extends BaseMapper<Project> {
     //删除项目
     @Update("UPDATE project SET deleted = 1 WHERE id = #{projectId}")
     void markProjectAsDeleted(@Param("projectId") Long projectId);
+
 }

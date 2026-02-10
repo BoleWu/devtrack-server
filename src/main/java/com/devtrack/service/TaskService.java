@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface TaskService {
-    List<TaskVO> getTaskByAll();
+    List<TaskVO> getTaskByAll(Long projectId);
     TaskVO createTask(TaskDTO dto);
     TaskVO updateStatus(TaskStatusUpdateDTO dto);
     void assign(Long taskId, Long userId);

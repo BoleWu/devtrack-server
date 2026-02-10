@@ -28,11 +28,11 @@ public class SecurityConfig {
         http.cors().and().csrf().disable()
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers(
-                        "/api/auth/login",
-                        "/api/auth/register",
-                        "/health",
-                        "/error",
-                        "/api/dashboard/**",
+//                        "/api/auth/login",
+//                        "/api/auth/register",
+//                        "/health",
+//                        "/error",
+//                        "/api/dashboard/**",
                         "/swagger-ui.html",
                         "/swagger-ui/**",
                         "/v3/api-docs",

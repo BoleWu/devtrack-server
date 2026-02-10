@@ -63,9 +63,4 @@ public class ProjectController {
         projectService.updateProject(updateProject);
         return R.success("更新成功");
     }
-    @RequestMapping("/updateProject")
-    public R<String> updateProjectPut(@Validated @RequestBody UpdateProject updateProject) {
-        projectService.updateProject(updateProject);
-        return R.success("更新成功");
-    }
 }

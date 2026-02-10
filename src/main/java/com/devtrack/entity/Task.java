@@ -32,6 +32,9 @@ public class Task {
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;
+    private LocalDateTime deadline;
 
     private Integer deleted;
+
+    private Integer priority;
 }

@@ -17,11 +17,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TaskController {
     private final  TaskServiceImpl taskService;
-    @RequestMapping("/geytaskByAllList")
-    public R<List<TaskVO>> listMyTasks() {
-        return R.success(taskService.getTaskByAll());
+    @GetMapping("/getTaskByList")
+    public R<List<TaskVO>> listMyTasks(@RequestParam(required = false) Long projectId) {
+        return R.success(taskService.getTaskByAll(projectId));
     }
-    @RequestMapping("/create")
+    @RequestMapping("/createtask")
     public R<TaskVO> createTask(@Validated @RequestBody TaskDTO taskDTO) {
         return R.success(taskService.createTask(taskDTO));
     }

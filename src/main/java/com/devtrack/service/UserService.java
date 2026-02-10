@@ -11,7 +11,7 @@ import com.devtrack.vo.UserVO;
 
 
 public interface UserService {
-    UserVO register(UserRegisterDTO userRegisterDTO);
+    void register(UserRegisterDTO userRegisterDTO);
     LoginVO login(UserLoginDTO userLoginDTO);
     UserVO getUserInfo(Long userId);
     PageInfoVO getuserList(PageInfoDTO pageInfoDTO);

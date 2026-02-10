@@ -26,8 +26,8 @@ public class UserController {
     private final UserService userService;
     
     @PostMapping("/register")
-    public R<UserVO> register(@Validated @RequestBody UserRegisterDTO dto){
-       return R.success(userService.register(dto));
+    public R<?> register(@Validated @RequestBody UserRegisterDTO dto){
+       return R.success("注册成功");
 
     }
     @PostMapping("/login")

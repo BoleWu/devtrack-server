@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserVO register(UserRegisterDTO userRegisterDTO) {
+    public void register(UserRegisterDTO userRegisterDTO) {
         // 检查用户名是否已存在
         if (userMapper.exists(new LambdaQueryWrapper<User>().eq(User::getUsername, userRegisterDTO.getUsername()))) {
             throw new ServiceException("用户名已存在");
@@ -51,6 +51,9 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
         // 默认角色
         user.setRole(userRegisterDTO.getRole());
+        user.setEmail(userRegisterDTO.getEmail());
+        user.setPhone(userRegisterDTO.getPhone());
+        user.setName(userRegisterDTO.getName());
         // 默认启用状态
         user.setStatus(1);
 
@@ -59,7 +62,6 @@ public class UserServiceImpl implements UserService {
         if (insert != 1) {
             throw new ServiceException("注册失败");
         }
-        return UserVO.fromEntity(user);
     }
 
     @Override

@@ -37,10 +37,11 @@ public class TaskServiceImpl implements TaskService {
 
 
     @Override
-    public List<TaskVO> getTaskByAll() {
+    public List<TaskVO> getTaskByAll(Long projectId) {
         Long userId = UserContext.getUserId();
         List<Task> tasks = taskMapper.selectList(
                 new LambdaQueryWrapper<Task>()
+                        .eq(Task::getProjectId, projectId)
                         .eq(Task::getCreateBy, userId)
                         .eq(Task::getDeleted, 0)
                         .orderByDesc(Task::getCreateTime)
@@ -66,9 +67,11 @@ public class TaskServiceImpl implements TaskService {
         task.setDescription(dto.getDescription());
         task.setStatus(dto.getStatus() == null ? "TODO" : dto.getStatus());
         task.setCreateBy(userId);
+        task.setPriority(dto.getPriority() == null ? 0 : dto.getPriority());
         task.setCreateTime(LocalDateTime.now());
         task.setUpdateTime(LocalDateTime.now());
         task.setDeleted(0);
+        task.setDeadline(dto.getDeadline());
         taskMapper.insert(task);
         return TaskVO.fromEntity(task);
     }

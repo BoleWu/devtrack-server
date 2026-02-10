@@ -8,9 +8,12 @@ import com.devtrack.dto.PageInfoDTO;
 import com.devtrack.dto.ProjectDTO;
 import com.devtrack.dto.UpdateProject;
 import com.devtrack.entity.Project;
+import com.devtrack.entity.ProjectMember;
+import com.devtrack.entity.User;
 import com.devtrack.mapper.MemberMapper;
 import com.devtrack.mapper.ProjectMapper;
 import com.devtrack.mapper.TaskMapper;
+import com.devtrack.mapper.UserMapper;
 import com.devtrack.service.ProjectService;
 import com.devtrack.service.ProjectPermissionService;
 import com.devtrack.vo.*;
@@ -18,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Member;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -30,8 +34,10 @@ public class ProjectServiceImpl implements ProjectService {
     private final TaskMapper taskMapper;
     private final MemberMapper memberMapper;
     private final ProjectPermissionService projectPermissionService;
+    private final UserMapper userMapper;
 
     @Override
+    @Transactional
     public ProjectVO createProject(ProjectDTO projectDTO) {
         Long userId = UserContext.getUserId();
         Project project = new Project();
@@ -43,7 +49,16 @@ public class ProjectServiceImpl implements ProjectService {
         project.setUpdateTime(LocalDateTime.now());
         project.setDeleted(0);
         int result = projectMapper.insert(project);
-        if (result == 0) {
+
+        ProjectMember projectMember = new ProjectMember();
+        projectMember.setProjectId(project.getId());
+        projectMember.setDeleted(0);
+        projectMember.setUserId(userId);
+        projectMember.setRole("ADMIN");
+        projectMember.setCreateTime(LocalDateTime.now());
+        projectMember.setDeleted(0);
+        int  memberresult=memberMapper.insert(projectMember);
+        if (result == 0 && memberresult==0) {
             throw new BusinessException("创建项目失败");
         }
         return ProjectVO.fromEntity(project);
@@ -133,5 +148,6 @@ public class ProjectServiceImpl implements ProjectService {
         project.setUpdateTime(LocalDateTime.now());
         projectMapper.updateById(project);
     }
+
 
 }
