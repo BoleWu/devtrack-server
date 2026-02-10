@@ -3,9 +3,12 @@ package com.devtrack.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDate;
 
-import java.time.LocalDateTime;
-
+/**
+ * @author Friday
+ */
 @Data
 public class TaskDTO {
     @NotNull(message = "项目ID不能为空")
@@ -14,6 +17,8 @@ public class TaskDTO {
     private String title;
     private String description;
     private String status;
-    private LocalDateTime deadline;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate deadline;
     private Integer  priority;
 }
+

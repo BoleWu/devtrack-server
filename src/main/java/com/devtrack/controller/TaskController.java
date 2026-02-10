@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tasks")
+@RequestMapping("/api/task")
 @RequiredArgsConstructor
 public class TaskController {
     private final  TaskServiceImpl taskService;
@@ -21,11 +21,12 @@ public class TaskController {
     public R<List<TaskVO>> listMyTasks(@RequestParam(required = false) Long projectId) {
         return R.success(taskService.getTaskByAll(projectId));
     }
-    @RequestMapping("/createtask")
+    @PostMapping("/createTask")
     public R<TaskVO> createTask(@Validated @RequestBody TaskDTO taskDTO) {
+        System.out.println("taskDTO: " + taskDTO);
         return R.success(taskService.createTask(taskDTO));
     }
-    @RequestMapping("/status")
+    @PostMapping("/status")
     public R<TaskVO> updateStatusTask(@Validated @RequestBody TaskStatusUpdateDTO dto) {
         return R.success(taskService.updateStatus(dto));
     }
@@ -34,6 +35,10 @@ public class TaskController {
         taskService.assign(id, userId);
         return R.success("成功");
     }
-
+    @GetMapping("/deleteTask")
+    public R<?> deleteTask(@RequestParam Long id) {
+        taskService.deleteTask(id);
+        return R.success("成功");
+    }
 
 }

@@ -9,6 +9,7 @@ import com.devtrack.vo.ProjectTaskStatsVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -65,4 +66,9 @@ public interface TaskMapper extends BaseMapper<Task> {
             @Param("id") Long id,
             @Param("userId") Long userId
     );
+
+    @Update("""
+            UPDATE task SET deleted = 1 WHERE id = #{id}
+            """)
+    void restore(@Param("id") Long id);
 }

@@ -4,9 +4,11 @@ package com.devtrack.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -31,8 +33,10 @@ public class Task {
 
     private LocalDateTime createTime;
 
+
     private LocalDateTime updateTime;
-    private LocalDateTime deadline;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate deadline;
 
     private Integer deleted;
 

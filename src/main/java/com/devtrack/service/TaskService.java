@@ -17,4 +17,5 @@ public interface TaskService {
     void assign(Long taskId, Long userId);
     List<BurnDownPointVO> burndown(Long id);
     List<GanttVO> gantt(Long id);
+    void deleteTask (Long id);
 }

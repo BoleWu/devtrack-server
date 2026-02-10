@@ -2,6 +2,9 @@ package com.devtrack.common.constant;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Friday
+ */
 @Component
 public class TaskStatus {
     //代办

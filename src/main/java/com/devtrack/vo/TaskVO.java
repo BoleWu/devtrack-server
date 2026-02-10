@@ -2,8 +2,10 @@ package com.devtrack.vo;
 
 
 import com.devtrack.entity.Task;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -13,8 +15,10 @@ public class TaskVO {
     private String title;
     private String description;
     private String status;
+
     private Integer priority;
-    private LocalDateTime deadline;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate deadline;
     public static TaskVO fromEntity(Task task) {
         TaskVO taskVO = new TaskVO();
         taskVO.setId(task.getId());

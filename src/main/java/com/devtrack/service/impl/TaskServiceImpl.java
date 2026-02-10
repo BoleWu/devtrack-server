@@ -34,6 +34,7 @@ public class TaskServiceImpl implements TaskService {
     private final ProjectMapper projectMapper;
     private final MemberMapper projectMemberMapper;
     private final OpLogServiceImpl OpLogServiceImpl;
+    private final ProjectPermissionServiceImpl projectPermissionService;
 
 
     @Override
@@ -44,7 +45,7 @@ public class TaskServiceImpl implements TaskService {
                         .eq(Task::getProjectId, projectId)
                         .eq(Task::getCreateBy, userId)
                         .eq(Task::getDeleted, 0)
-                        .orderByDesc(Task::getCreateTime)
+                        .orderByDesc(Task::getId)
         );
         return tasks.stream().map(TaskVO::fromEntity).toList();
     }
@@ -60,6 +61,13 @@ public class TaskServiceImpl implements TaskService {
         );
         if(project == null){
             throw new BusinessException("项目不存在");
+        }
+        LambdaQueryWrapper<Task> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Task::getTitle, dto.getTitle())
+                .eq(Task::getProjectId, dto.getProjectId())
+                .eq(Task::getDeleted, 0);
+        if(taskMapper.exists(wrapper)){
+            throw new BusinessException("任务已存在");
         }
         Task task = new Task();
         task.setProjectId(dto.getProjectId());
@@ -130,6 +138,14 @@ public class TaskServiceImpl implements TaskService {
     public List<GanttVO> gantt( Long id){
         Long userId = UserContext.getUserId();
         return taskMapper.gantt(id,userId);
+    }
+
+    @Override
+    public void deleteTask (Long id){
+        if(!projectPermissionService.chekckTask(id)){
+            throw new BusinessException("无删除权限");
+        }
+        taskMapper.restore(id);
     }
 
 }
