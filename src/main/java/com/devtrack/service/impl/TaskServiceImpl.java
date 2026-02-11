@@ -5,26 +5,28 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.devtrack.common.constant.TaskStatusFlow;
 import com.devtrack.common.exception.BusinessException;
 import com.devtrack.common.util.UserContext;
+import com.devtrack.dto.TaskAddAssignDTO;
 import com.devtrack.dto.TaskDTO;
 import com.devtrack.dto.TaskStatusUpdateDTO;
 import com.devtrack.entity.Project;
 import com.devtrack.entity.ProjectMember;
 import com.devtrack.entity.Task;
+import com.devtrack.entity.TaskMember;
 import com.devtrack.mapper.MemberMapper;
 import com.devtrack.mapper.ProjectMapper;
 import com.devtrack.mapper.TaskMapper;
+import com.devtrack.mapper.TaskMemberMapper;
 import com.devtrack.service.TaskService;
-import com.devtrack.vo.BurnDownPointVO;
-import com.devtrack.vo.GanttVO;
-import com.devtrack.vo.TaskVO;
+import com.devtrack.vo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +37,7 @@ public class TaskServiceImpl implements TaskService {
     private final MemberMapper projectMemberMapper;
     private final OpLogServiceImpl OpLogServiceImpl;
     private final ProjectPermissionServiceImpl projectPermissionService;
+    private final TaskMemberMapper taskMemberMapper;
 
 
     @Override
@@ -47,7 +50,27 @@ public class TaskServiceImpl implements TaskService {
                         .eq(Task::getDeleted, 0)
                         .orderByDesc(Task::getId)
         );
-        return tasks.stream().map(TaskVO::fromEntity).toList();
+        List<TaskVO> tasksList = tasks.stream().map(TaskVO::fromEntity).toList();
+        List<Long> taskIds = tasksList.stream().map(TaskVO::getId).toList();
+        List<MemberVO> TaskUserList=taskMemberMapper.getTaskMemberList(taskIds);
+        Map<Long, List<JSONDataVO>> memberMap = TaskUserList.stream()
+                .collect(Collectors.groupingBy(
+                        MemberVO::getId,
+                        Collectors.mapping(
+                                m -> {
+                                    JSONDataVO vo = new JSONDataVO();
+                                    vo.setId(m.getUserId());
+                                    vo.setName(m.getName());
+                                    return vo;
+                                },
+                                Collectors.toList()
+                        )
+                ));
+        tasksList.forEach(TaskVO -> {
+            TaskVO.setMembers(memberMap.get(TaskVO.getId()));
+        });
+//        return tasks.stream().map(TaskVO::fromEntity).toList();
+        return tasksList;
     }
 
     @Override
@@ -147,5 +170,16 @@ public class TaskServiceImpl implements TaskService {
         }
         taskMapper.restore(id);
     }
-
+    @Override
+    @Transactional
+    public void taskAssignee(TaskAddAssignDTO taskAddAssignDTO){
+        Long taskId = taskAddAssignDTO.getTaskId();
+        List<Long> list = taskAddAssignDTO.getList();
+        for (Long id : list){
+            TaskMember taskMember = new TaskMember();
+            taskMember.setTaskId(taskId);
+            taskMember.setUserId(id);
+            taskMemberMapper.insert(taskMember);
+        }
+    }
 }

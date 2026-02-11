@@ -8,7 +8,7 @@ import lombok.Data;
  */
 
 @Data
-public class ProjectMemberVO {
+public class MemberVO {
     private Long id;
     private String name;
     private Long userId;

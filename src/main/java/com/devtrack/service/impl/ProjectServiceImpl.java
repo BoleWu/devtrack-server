@@ -2,14 +2,12 @@ package com.devtrack.service.impl;
 
 
 import com.devtrack.common.exception.BusinessException;
-import com.devtrack.common.result.R;
 import com.devtrack.common.util.UserContext;
 import com.devtrack.dto.PageInfoDTO;
 import com.devtrack.dto.ProjectDTO;
 import com.devtrack.dto.UpdateProject;
 import com.devtrack.entity.Project;
 import com.devtrack.entity.ProjectMember;
-import com.devtrack.entity.User;
 import com.devtrack.mapper.MemberMapper;
 import com.devtrack.mapper.ProjectMapper;
 import com.devtrack.mapper.TaskMapper;
@@ -21,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Member;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -75,10 +72,10 @@ public class ProjectServiceImpl implements ProjectService {
         int offset = (page - 1) * limit;
         List<ProjectVO> list=projectMapper.getUserProjectsByList(userId,name,offset,limit);
         List<Long> projectIds = list.stream().map(ProjectVO::getId).toList();
-        List<ProjectMemberVO> projectUserList=memberMapper.getProjectMemberList(projectIds);
+        List<MemberVO> projectUserList=memberMapper.getProjectMemberList(projectIds);
         Map<Long, List<JSONDataVO>> memberMap = projectUserList.stream()
                 .collect(Collectors.groupingBy(
-                        ProjectMemberVO::getId,
+                        MemberVO::getId,
                         Collectors.mapping(
                                 m -> {
                                     JSONDataVO vo = new JSONDataVO();

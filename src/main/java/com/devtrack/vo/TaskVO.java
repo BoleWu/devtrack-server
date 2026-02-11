@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class TaskVO {
@@ -15,6 +15,7 @@ public class TaskVO {
     private String title;
     private String description;
     private String status;
+    private List<JSONDataVO> members;
 
     private Integer priority;
     @JsonFormat(pattern = "yyyy-MM-dd")

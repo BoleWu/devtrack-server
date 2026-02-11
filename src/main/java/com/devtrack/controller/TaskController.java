@@ -2,6 +2,7 @@ package com.devtrack.controller;
 
 
 import com.devtrack.common.result.R;
+import com.devtrack.dto.TaskAddAssignDTO;
 import com.devtrack.dto.TaskDTO;
 import com.devtrack.dto.TaskStatusUpdateDTO;
 import com.devtrack.service.impl.TaskServiceImpl;
@@ -38,6 +39,11 @@ public class TaskController {
     @GetMapping("/deleteTask")
     public R<?> deleteTask(@RequestParam Long id) {
         taskService.deleteTask(id);
+        return R.success("成功");
+    }
+    @PostMapping("/taskAssignee")
+    public R<?> taskAssignee(@RequestBody TaskAddAssignDTO taskAddAssignDTO) {
+        taskService.taskAssignee(taskAddAssignDTO);
         return R.success("成功");
     }
 

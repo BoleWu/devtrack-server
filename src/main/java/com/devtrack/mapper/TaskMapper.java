@@ -36,6 +36,7 @@ public interface TaskMapper extends BaseMapper<Task> {
                    COUNT(*) remain
             FROM task
             WHERE assignee_id = #{userId}
+                AND deleted = 0
             <if test="id != null and id !=''">
             AND project_id = #{id}
             </if>

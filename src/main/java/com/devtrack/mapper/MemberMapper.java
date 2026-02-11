@@ -4,7 +4,7 @@ package com.devtrack.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.devtrack.dto.AddProjectUserDTO;
 import com.devtrack.entity.ProjectMember;
-import com.devtrack.vo.ProjectMemberVO;
+import com.devtrack.vo.MemberVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -57,7 +57,7 @@ public interface MemberMapper extends BaseMapper<ProjectMember> {
     </if>
     </script>
 """)
-    List<ProjectMemberVO> getProjectMemberList(@Param("projectIds") List<Long> projectIds);
+    List<MemberVO> getProjectMemberList(@Param("projectIds") List<Long> projectIds);
 
 
         //  删除项目，所有项目对应的  deleted都为1
