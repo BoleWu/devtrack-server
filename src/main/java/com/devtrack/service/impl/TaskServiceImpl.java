@@ -2,6 +2,7 @@ package com.devtrack.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.devtrack.common.constant.TaskStatusFlow;
 import com.devtrack.common.exception.BusinessException;
 import com.devtrack.common.util.UserContext;
@@ -24,8 +25,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,7 +55,7 @@ public class TaskServiceImpl implements TaskService {
         );
         List<TaskVO> tasksList = tasks.stream().map(TaskVO::fromEntity).toList();
         List<Long> taskIds = tasksList.stream().map(TaskVO::getId).toList();
-        List<MemberVO> TaskUserList=taskMemberMapper.getTaskMemberList(taskIds);
+        List<MemberVO> TaskUserList = taskMemberMapper.getTaskMemberList(taskIds);
         Map<Long, List<JSONDataVO>> memberMap = TaskUserList.stream()
                 .collect(Collectors.groupingBy(
                         MemberVO::getId,
@@ -82,14 +85,14 @@ public class TaskServiceImpl implements TaskService {
                         .eq(Project::getCreateBy, userId)
                         .eq(Project::getDeleted, 0)
         );
-        if(project == null){
+        if (project == null) {
             throw new BusinessException("项目不存在");
         }
         LambdaQueryWrapper<Task> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Task::getTitle, dto.getTitle())
                 .eq(Task::getProjectId, dto.getProjectId())
                 .eq(Task::getDeleted, 0);
-        if(taskMapper.exists(wrapper)){
+        if (taskMapper.exists(wrapper)) {
             throw new BusinessException("任务已存在");
         }
         Task task = new Task();
@@ -111,13 +114,13 @@ public class TaskServiceImpl implements TaskService {
     public TaskVO updateStatus(TaskStatusUpdateDTO dto) {
         Long userId = UserContext.getUserId();
         Task task = taskMapper.selectById(dto.getTaskId());
-        if(task == null || task.getDeleted() == 1){
+        if (task == null || task.getDeleted() == 1) {
             throw new BusinessException("任务不存在");
         }
-        if(!task.getCreateBy().equals(userId)){
+        if (!task.getCreateBy().equals(userId)) {
             throw new BusinessException("无修改权限");
         }
-        if(!TaskStatusFlow.canChange(task.getStatus(), dto.getNewstatus())){
+        if (!TaskStatusFlow.canChange(task.getStatus(), dto.getNewstatus())) {
             throw new BusinessException("非法状态流转: "
                     + task.getStatus() + " → " + dto.getNewstatus());
         }
@@ -126,6 +129,7 @@ public class TaskServiceImpl implements TaskService {
         taskMapper.updateById(task);
         return TaskVO.fromEntity(task);
     }
+
     @Override
     public void assign(Long taskId, Long userId) {
         Task task = taskMapper.selectById(taskId);
@@ -139,6 +143,7 @@ public class TaskServiceImpl implements TaskService {
         );
         OpLogServiceImpl.log("TASK", taskId, "ASSIGN", detail);
     }
+
     private void checkProjectMember(Long projectId, Long userId) {
         boolean exists = projectMemberMapper.exists(
                 new LambdaQueryWrapper<ProjectMember>()
@@ -150,36 +155,84 @@ public class TaskServiceImpl implements TaskService {
             throw new BusinessException("你不是该项目成员");
         }
     }
+
     @Override
     public List<BurnDownPointVO> burndown(Long projectId) {
         Long userId = UserContext.getUserId();
-        List<BurnDownPointVO> list=taskMapper.burndown(projectId,userId);
+        List<BurnDownPointVO> list = taskMapper.burndown(projectId, userId);
         log.debug("list: {}", list);
-        return  list;
-    }
-    @Override
-    public List<GanttVO> gantt( Long id){
-        Long userId = UserContext.getUserId();
-        return taskMapper.gantt(id,userId);
+        return list;
     }
 
     @Override
-    public void deleteTask (Long id){
-        if(!projectPermissionService.chekckTask(id)){
+    public List<GanttVO> gantt(Long id) {
+        Long userId = UserContext.getUserId();
+        return taskMapper.gantt(id, userId);
+    }
+
+    @Override
+    public void deleteTask(Long id) {
+        if (!projectPermissionService.chekckTask(id)) {
             throw new BusinessException("无删除权限");
         }
         taskMapper.restore(id);
+        taskMemberMapper.update(new TaskMember(), new LambdaUpdateWrapper<TaskMember>()
+                .eq(TaskMember::getTaskId, id)
+                .set(TaskMember::getDeleted, 1)
+        );
     }
+
     @Override
     @Transactional
-    public void taskAssignee(TaskAddAssignDTO taskAddAssignDTO){
+    public void taskAssignee(TaskAddAssignDTO taskAddAssignDTO) {
         Long taskId = taskAddAssignDTO.getTaskId();
+
         List<Long> list = taskAddAssignDTO.getList();
-        for (Long id : list){
-            TaskMember taskMember = new TaskMember();
-            taskMember.setTaskId(taskId);
-            taskMember.setUserId(id);
-            taskMemberMapper.insert(taskMember);
+        taskMemberMapper.update(new TaskMember(), new LambdaUpdateWrapper<TaskMember>()
+                .notIn(TaskMember::getUserId, list)
+                .eq(TaskMember::getTaskId, taskId)
+                .set(TaskMember::getDeleted, 1)
+        );
+        List<TaskMember> taskMembers = taskMemberMapper.selectList(new LambdaQueryWrapper<TaskMember>()
+                .eq(TaskMember::getTaskId, taskId)
+                .eq(TaskMember::getDeleted, 0)
+        );
+        Set<Long> currentUserIdSet = taskMembers.stream()
+                .map(TaskMember::getUserId)
+                .collect(Collectors.toSet());
+        List<Long> toAddUserIds = list.stream()
+                .filter(userId -> !currentUserIdSet.contains(userId))
+                .toList();
+        if (!toAddUserIds.isEmpty()) {
+            for (Long id : toAddUserIds) {
+                TaskMember taskMember = new TaskMember();
+                taskMember.setTaskId(taskId);
+                taskMember.setUserId(id);
+                taskMemberMapper.insert(taskMember);
+            }
         }
+    }
+    @Override
+    public void updateTask(TaskDTO taskDTO){
+        Task task = new Task();
+        task.setId(taskDTO.getId());
+        task.setTitle(taskDTO.getTitle());
+        task.setDescription(taskDTO.getDescription());
+        task.setStatus(taskDTO.getStatus());
+        task.setPriority(taskDTO.getPriority());
+        task.setDeadline(taskDTO.getDeadline());
+        task.setUpdateTime(LocalDateTime.now());
+        taskMapper.updateById(task);
+    }
+    @Override
+    public void activateTask(TaskStatusUpdateDTO dto){
+        taskMapper.update(new Task(), new LambdaUpdateWrapper<Task>()
+                .eq(Task::getId, dto.getTaskId())
+                .set(Task::getStatus, dto.getNewstatus())
+        );
+        Map<String,String> map = new HashMap<>();
+        map.put("from", "DOING");
+        map.put("to", "TODO");
+        OpLogServiceImpl.log("TASK", dto.getTaskId(), "ACTIVATE", map);
     }
 }

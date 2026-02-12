@@ -11,6 +11,7 @@ import java.time.LocalDate;
  */
 @Data
 public class TaskDTO {
+    private Long id;
     @NotNull(message = "项目ID不能为空")
     private Long projectId;
     @NotBlank(message = "任务标题不能为空")

@@ -7,7 +7,7 @@ import java.util.Set;
 public class TaskStatusFlow {
     private static final Map<String, Set<String>> FLOW =Map.of(
             TaskStatus.TODO, Set.of(TaskStatus.DOING, TaskStatus.BLOCKED),
-            TaskStatus.DOING, Set.of(TaskStatus.DOING,TaskStatus.BLOCKED),
+            TaskStatus.DOING, Set.of(TaskStatus.DONE,TaskStatus.BLOCKED),
             TaskStatus.BLOCKED, Set.of(TaskStatus.DOING),
             TaskStatus.DONE, Set.of()
     );

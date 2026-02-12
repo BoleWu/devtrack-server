@@ -19,4 +19,6 @@ public interface TaskService {
     List<GanttVO> gantt(Long id);
     void deleteTask (Long id);
     void taskAssignee(TaskAddAssignDTO taskAddAssignDTO);
+    void updateTask(TaskDTO taskDTO);
+    void activateTask(TaskStatusUpdateDTO dto);
 }

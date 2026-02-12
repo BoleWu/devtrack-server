@@ -46,5 +46,14 @@ public class TaskController {
         taskService.taskAssignee(taskAddAssignDTO);
         return R.success("成功");
     }
-
+    @PostMapping("/updatetask")
+    public R<?> updateTask(@RequestBody TaskDTO taskDTO) {
+        taskService.updateTask(taskDTO);
+        return R.success("成功");
+    }
+    @PostMapping("/activateTask")
+    public R<?> activateTask(@RequestBody TaskStatusUpdateDTO dto) {
+        taskService.activateTask(dto);
+        return R.success("成功");
+    }
 }
