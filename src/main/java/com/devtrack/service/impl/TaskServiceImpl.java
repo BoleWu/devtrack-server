@@ -102,6 +102,7 @@ public class TaskServiceImpl implements TaskService {
         task.setStatus(dto.getStatus() == null ? "TODO" : dto.getStatus());
         task.setCreateBy(userId);
         task.setPriority(dto.getPriority() == null ? 0 : dto.getPriority());
+        task.setAssigneeId(userId);
         task.setCreateTime(LocalDateTime.now());
         task.setUpdateTime(LocalDateTime.now());
         task.setDeleted(0);
