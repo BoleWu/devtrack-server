@@ -11,6 +11,9 @@ public class UserVO {
     private Long id;
     private String username;
     private String role;
+    private String email;
+    private String phone;
+    private String name ;
     private Integer status;
     private String createTime;
     // 注意：不包含密码等敏感信息
@@ -21,6 +24,9 @@ public class UserVO {
         userVO.setUsername(user.getUsername());
         userVO.setRole(user.getRole());
         userVO.setStatus(user.getStatus());
+        userVO.setName(user.getName());
+        userVO.setEmail(user.getEmail());
+        userVO.setPhone(user.getPhone());
         return userVO;
     }
 }

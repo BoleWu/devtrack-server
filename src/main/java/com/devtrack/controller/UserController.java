@@ -32,18 +32,12 @@ public class UserController {
 
     }
     @PostMapping("/login")
-    public R<LoginVO> login(@Validated @RequestBody UserLoginDTO logindto, HttpServletRequest request) {
+    public R<?> login(@Validated @RequestBody UserLoginDTO logindto, HttpServletRequest request) {
         //        return R.ok(loginVO);
         return R.success(userService.login(logindto));
     }
     
-    @GetMapping("/profile")
-    public R<UserVO> getProfile() {
-        // 实际应用中这里会从认证上下文中获取用户ID
-        // 这里为了演示使用固定ID
-        UserVO userVO = userService.getUserInfo(1L);
-        return R.success(userVO);
-    }
+
     @RequestMapping("/queryUserInfoByList")
     public R<PageInfoVO> queryUserInfoByList(@Validated @RequestBody PageInfoDTO pageInfoDTO) {
         return R.success(userService.getuserList(pageInfoDTO));

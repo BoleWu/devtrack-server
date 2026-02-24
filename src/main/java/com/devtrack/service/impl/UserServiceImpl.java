@@ -130,7 +130,6 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             throw new ServiceException("用户不存在");
         }
-
         return UserVO.fromEntity(user);
     }
 
