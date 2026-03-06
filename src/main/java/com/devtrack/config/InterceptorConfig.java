@@ -1,6 +1,7 @@
 package com.devtrack.config;
 
 import com.devtrack.interceptor.AuthenticationInterceptor;
+import lombok.NonNull;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -23,7 +24,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     }
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
+    public void addInterceptors(@NonNull InterceptorRegistry registry) {
         if (interceptorProperties.isEnable()) {
             // 注册身份验证拦截器，使用配置的排除路径
             registry.addInterceptor(authenticationInterceptor)

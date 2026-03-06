@@ -1,6 +1,7 @@
 package com.devtrack.controller;
 
 
+import com.devtrack.common.annotation.RequirePermission;
 import com.devtrack.common.result.R;
 import com.devtrack.dto.PageInfoDTO;
 import com.devtrack.dto.ProjectDTO;
@@ -21,6 +22,7 @@ public class ProjectController {
     private final ProjectService projectService;
     private final TaskService taskService;
     @PostMapping("/createproject")
+    @RequirePermission("project:create")
     public R<ProjectVO> createProject(@Validated @RequestBody ProjectDTO projectDTO) {         
         return R.success(projectService.createProject(projectDTO));
     }
@@ -53,7 +55,9 @@ public class ProjectController {
     public R<List<GanttVO>> gantt(@PathVariable Long id) {
         return R.success(taskService.gantt(id));
     }
+
     @GetMapping("/deleteProject")
+    @RequirePermission("project:delete")
     public R<String> deleteProject(@RequestParam Long projectId) {
         projectService.deleteProject(projectId);
         return R.success("删除成功");

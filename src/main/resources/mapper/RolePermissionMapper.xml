@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devtrack.mapper.RolePermissionMapper">
+
+    <select id="countRolePermission" resultType="int" parameterType="map">
+        SELECT COUNT(1)
+        FROM role_permission rp
+        JOIN permission p ON rp.permission_id = p.id
+        WHERE rp.role_id IN
+        <foreach collection="roleIds" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+        AND p.code = #{permissionCode}
+    </select>
+      </mapper>
