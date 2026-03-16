@@ -2,7 +2,7 @@ package com.devtrack.common.aop;
 
 import com.devtrack.common.exception.BusinessException;
 import com.devtrack.common.util.UserContext;
-import com.devtrack.service.RbacService;
+import com.devtrack.modules.rbac.service.RbacService;
 import com.devtrack.common.annotation.RequirePermission;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -29,3 +29,4 @@ public class PermissionAspect {
         return joinPoint.proceed();
     }
 }
+

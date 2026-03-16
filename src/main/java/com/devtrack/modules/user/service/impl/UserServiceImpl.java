@@ -1,0 +1,151 @@
+package com.devtrack.modules.user.service.impl;
+
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.devtrack.common.exception.LoginException;
+import com.devtrack.common.exception.ServiceException;
+import com.devtrack.common.util.IpUtil;
+import com.devtrack.modules.shared.dto.PageInfoDTO;
+import com.devtrack.modules.user.dto.UserLoginDTO;
+import com.devtrack.modules.user.dto.UserRegisterDTO;
+import com.devtrack.modules.user.entity.User;
+import com.devtrack.modules.user.mapper.UserMapper;
+import com.devtrack.modules.user.service.UserService;
+import com.devtrack.modules.log.service.LoginLogService;
+import com.devtrack.modules.user.vo.LoginVO;
+import com.devtrack.modules.shared.vo.PageInfoVO;
+import com.devtrack.modules.user.vo.UserListVO;
+import com.devtrack.modules.user.vo.UserVO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import jakarta.servlet.http.HttpServletRequest;
+
+import com.devtrack.common.util.JwtUtil;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class UserServiceImpl implements UserService {
+    private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
+    private final LoginLogService loginLogService;
+    private final JwtUtil jwtUtil;
+    private final IpUtil ipUtil;
+
+
+    @Override
+    public void register(UserRegisterDTO userRegisterDTO) {
+        // 检查用户名是否已存在？
+        if (userMapper.exists(new LambdaQueryWrapper<User>().eq(User::getUsername, userRegisterDTO.getUsername()))) {
+            throw new ServiceException("用户名已存在");
+        }
+
+        // 创建用户实体并设置加密后的密码
+        User user = new User();
+        user.setUsername(userRegisterDTO.getUsername());
+        // 加密密码
+        user.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
+        // 默认角色
+        user.setRole(userRegisterDTO.getRole());
+        user.setEmail(userRegisterDTO.getEmail());
+        user.setPhone(userRegisterDTO.getPhone());
+        user.setName(userRegisterDTO.getName());
+        // 默认启用状态
+        user.setStatus(1);
+
+        // 保存用户到数据库
+        int insert = userMapper.insert(user);
+        if (insert != 1) {
+            throw new ServiceException("注册失败");
+        }
+    }
+
+    @Override
+    public LoginVO login(UserLoginDTO userLoginDTO) {
+        // 检查用户名是否存在
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUsername, userLoginDTO.getUsername()));
+        if (user == null) {
+            // 记录登录失败日志
+            HttpServletRequest request = ipUtil.getCurrentRequest();
+            String ip = ipUtil.getClientIpAddress(request);
+            String userAgent = request != null ? request.getHeader("User-Agent") : "";
+            loginLogService.recordLoginLog(
+                    userLoginDTO.getUsername(),
+                    ip,
+                    userAgent,
+                    false,
+                    "用户名错误"
+            );
+
+            throw new LoginException("用户名错误");
+        }
+        // 检查密码是否正？
+        if (!passwordEncoder.matches(userLoginDTO.getPassword(), user.getPassword())) {
+            // 记录登录失败日志
+            HttpServletRequest request = ipUtil.getCurrentRequest();
+            String ip = ipUtil.getClientIpAddress(request);
+            String userAgent = request != null ? request.getHeader("User-Agent") : "";
+
+            loginLogService.recordLoginLog(
+                    userLoginDTO.getUsername(),
+                    ip,
+                    userAgent,
+                    false,
+                    "密码错误"
+            );
+
+            throw new LoginException("密码错误");
+        }
+        
+        // 生成JWT令牌
+        String token = jwtUtil.generateToken(user);
+
+        // 记录登录成功日志
+        HttpServletRequest request = ipUtil.getCurrentRequest();
+        String ip = ipUtil.getClientIpAddress(request);
+        String userAgent = request != null ? request.getHeader("User-Agent") : "";
+
+        loginLogService.recordLoginLog(
+                userLoginDTO.getUsername(),
+                ip,
+                userAgent,
+                true,
+                null
+        );
+
+        // 构建登录响应对象
+        LoginVO loginVO = new LoginVO();
+        loginVO.setUsername(userLoginDTO.getUsername());
+        loginVO.setToken(token);
+        return loginVO;
+    }
+
+    @Override
+    public UserVO getUserInfo(Long userId) {
+        User user = userMapper.selectById(userId);
+        if (user == null) {
+            throw new ServiceException("用户不存在");
+        }
+        return UserVO.fromEntity(user);
+    }
+
+
+    @Override
+    public PageInfoVO getuserList(PageInfoDTO pageInfoDTO){
+        String name = pageInfoDTO.getName();
+        Integer pageArg = pageInfoDTO.getPage() == null ? pageInfoDTO.getPageNum() : pageInfoDTO.getPage();
+        Integer sizeArg = pageInfoDTO.getLimit() == null ? pageInfoDTO.getPageSize() : pageInfoDTO.getLimit();
+        int page = (pageArg == null || pageArg < 1) ? 1 : pageArg;
+        int limit = (sizeArg == null || sizeArg < 1) ? 10 : sizeArg;
+        Integer  offset= (page - 1) * limit;
+        List<UserListVO> userListVos=userMapper.userList(name,offset,limit);
+        Long total =userMapper.userListTotal(name);
+        return new PageInfoVO(userListVos,total,page,limit);
+    }
+
+}
+
+

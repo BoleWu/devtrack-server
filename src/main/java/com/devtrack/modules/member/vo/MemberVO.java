@@ -1,0 +1,16 @@
+package com.devtrack.modules.member.vo;
+
+import lombok.Data;
+
+/**
+ * @author Friday
+ * @Date 2026-02-07 23:59
+ */
+
+@Data
+public class MemberVO {
+    private Long id;
+    private String name;
+    private Long userId;
+}
+

@@ -3,8 +3,8 @@
  */
 package com.devtrack.common.util;
 
-import com.devtrack.dto.UserLoginDTO;
-import com.devtrack.entity.User;
+import com.devtrack.modules.user.dto.UserLoginDTO;
+import com.devtrack.modules.user.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -30,11 +30,11 @@ public class JwtUtil {
 
 
     /**
- * JwtUtil的构造函数，用于初始化JwtUtil实例
- * @param jwtConfig JWT配置对象，包含生成和验证JWT所需的配置信息
- */
+     * JwtUtil 的构造函数，用于初始化 JwtUtil 实例
+     * @param jwtConfig JWT 配置对象，包含生成和验证 JWT 所需的配置信息
+     */
     public JwtUtil(JwtConfig jwtConfig) {
-    // 将传入的JWT配置对象赋值给实例变量
+        // 将传入的 JWT 配置对象赋值给实例变量
         this.jwtConfig = jwtConfig;
     }
 
@@ -64,7 +64,7 @@ public class JwtUtil {
      * @param token          JWT 令牌
      * @param claimsResolver 声明解析器函数
      * @param <T>            声明类型
-     * @return 解析出的声明值
+     * @return 解析出的声明
      */
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
@@ -99,7 +99,7 @@ public class JwtUtil {
      * 根据用户详细信息生成 JWT 令牌
      *
      * @param user 用户详细信息
-     * @return 生成的 JWT 令牌
+     * @return 生成?JWT 令牌
      */
     public String generateToken(User user) {
         log.info("生成token userId={}, role={}", user.getId(), user.getRole());
@@ -116,7 +116,7 @@ public class JwtUtil {
      *
      * @param claims  声明集合
      * @param subject 主题（通常是用户名）
-     * @return 生成的 JWT 令牌
+     * @return 生成 JWT 令牌
      */
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
@@ -132,7 +132,7 @@ public class JwtUtil {
      * 验证 JWT 令牌是否有效
      *
      * @param token        JWT 令牌
-     * @param user)  用户详细信息
+     * @param user         用户信息
      * @return 如果令牌有效则返回 true，否则返回 false
      */
 
@@ -184,3 +184,4 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(keyBytes).getEncoded();
     }
 }
+
