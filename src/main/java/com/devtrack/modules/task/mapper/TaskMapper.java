@@ -32,15 +32,17 @@ public interface TaskMapper extends BaseMapper<Task> {
 
     @Select("""
             <script>
-            SELECT DATE(create_time) day,
-                   COUNT(*) remain
-            FROM task
-            WHERE assignee_id = #{userId}
-                AND deleted = 0
+            SELECT DATE(t.create_time) as day,
+                   COUNT(*) as remain
+            FROM task t
+            left join task_member tm
+            on t.id=tm.task_id
+            WHERE  t.deleted = 0
             <if test="id != null and id !=''">
-            AND project_id = #{id}
+            AND t.project_id = #{id}
             </if>
-            GROUP BY day
+            and tm.user_id=#{userId}
+            GROUP BY DATE(t.create_time)
             ORDER BY day
             </script>
             """)

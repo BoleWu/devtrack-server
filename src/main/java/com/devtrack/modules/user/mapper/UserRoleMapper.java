@@ -8,11 +8,9 @@ import com.devtrack.modules.user.vo.UserVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
 @Mapper
 public interface UserRoleMapper extends BaseMapper<UserRole> {
-    IPage<UserVO>queryUserRoleByList(IPage<UserVO> page, @Param("roleId")  Long roleId);
+    IPage<UserVO>queryUserRoleByList(@Param("page") IPage<UserVO> page, @Param("roleId")  Long roleId , @Param("name") String name);
 }
 
 

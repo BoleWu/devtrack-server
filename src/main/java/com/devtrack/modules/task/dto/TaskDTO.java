@@ -1,4 +1,4 @@
-﻿package com.devtrack.modules.task.dto;
+package com.devtrack.modules.task.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

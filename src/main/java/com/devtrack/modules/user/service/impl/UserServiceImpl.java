@@ -17,7 +17,6 @@ import com.devtrack.modules.shared.vo.PageInfoVO;
 import com.devtrack.modules.user.vo.UserListVO;
 import com.devtrack.modules.user.vo.UserVO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpServletRequest;
@@ -136,13 +135,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public PageInfoVO getuserList(PageInfoDTO pageInfoDTO){
         String name = pageInfoDTO.getName();
-        Integer pageArg = pageInfoDTO.getPage() == null ? pageInfoDTO.getPageNum() : pageInfoDTO.getPage();
-        Integer sizeArg = pageInfoDTO.getLimit() == null ? pageInfoDTO.getPageSize() : pageInfoDTO.getLimit();
+        Integer pageArg = pageInfoDTO.getPage();
+        Integer sizeArg = pageInfoDTO.getLimit();
+        Integer status = (Integer) pageInfoDTO.getStatus();
         int page = (pageArg == null || pageArg < 1) ? 1 : pageArg;
         int limit = (sizeArg == null || sizeArg < 1) ? 10 : sizeArg;
         Integer  offset= (page - 1) * limit;
-        List<UserListVO> userListVos=userMapper.userList(name,offset,limit);
-        Long total =userMapper.userListTotal(name);
+        List<UserListVO> userListVos=userMapper.userList(name,offset,limit,status);
+        Long total =userMapper.userListTotal(name, status);
         return new PageInfoVO(userListVos,total,page,limit);
     }
 

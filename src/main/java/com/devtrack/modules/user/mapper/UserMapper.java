@@ -23,26 +23,36 @@ public interface UserMapper extends BaseMapper<User> {
     * */
     @Select("""
             <script>
-            SELECT id,username,role,name,status FROM user
+            SELECT id,username,role,name,status,email,phone FROM user
+            <where>
             <if test="name != null and name !=''">
-            WHERE name LIKE CONCAT('%', #{name}, '%') OR role LIKE CONCAT('%', #{name}, '%') OR username LIKE CONCAT('%', #{name}, '%')
+            and name LIKE CONCAT('%', #{name}, '%') OR role LIKE CONCAT('%', #{name}, '%') OR username LIKE CONCAT('%', #{name}, '%')
             </if>
+            <if test="status !=null">
+                and status = #{status}
+            </if>
+            </where>
             ORDER BY id
             LIMIT  #{offset} , #{pageSize}
             </script>
             """)
-    List<UserListVO> userList(@Param("name") String name, @Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+    List<UserListVO> userList(@Param("name") String name, @Param("offset") Integer offset, @Param("pageSize") Integer pageSize ,@Param("status") Integer status);
 
 
     @Select("""
             <script>
             SELECT COUNT(*) as total FROM user
+            <where>
             <if test="name != null and name !=''">
-            WHERE name LIKE CONCAT('%', #{name}, '%') OR role LIKE CONCAT('%', #{name}, '%') OR username LIKE CONCAT('%', #{name}, '%')
+            and name LIKE CONCAT('%', #{name}, '%') OR role LIKE CONCAT('%', #{name}, '%') OR username LIKE CONCAT('%', #{name}, '%')
             </if>
+                <if test="status !=null">
+                and status = #{status}
+            </if>
+            </where>
             </script>
             """)
-    Long userListTotal(@Param("name") String name);
+    Long userListTotal(@Param("name") String name , @Param("status") Integer status);
 
 
 }

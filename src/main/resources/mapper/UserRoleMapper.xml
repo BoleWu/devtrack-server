@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.devtrack.modules.user.mapper.UserRoleMapper">
-    <resultMap id="userRoleListMap" type="com.devtrack.modules.rbac.vo.RoleListVo">
+    <resultMap id="userRoleListMap" type="com.devtrack.modules.user.vo.UserVO">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="username" column="username"/>
@@ -12,7 +12,12 @@
         from user_role ur
         left join user u on ur.user_id = u.id
         where 1=1
+          <if test="name != null and name != ''">
+            and (u.name like concat('%',#{name},'%')
+            or u.username like concat('%',#{name},'%'))
+        </if>
         and ur.role_id = #{roleId}
+        and u.status = 0
         order by id
     </select>
 </mapper>

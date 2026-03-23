@@ -1,4 +1,4 @@
-﻿package com.devtrack.modules.user.vo;
+package com.devtrack.modules.user.vo;
 
 import lombok.Data;
 

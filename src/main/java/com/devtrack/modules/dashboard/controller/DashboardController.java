@@ -23,8 +23,8 @@ public class DashboardController {
         return R.success(dashboardSetvice.listProjectProgress());
     }
     @GetMapping("/burn-down")
-    public R<?> burndown(@RequestParam(required = false) Long id){
-        return R.success(taskService.burndown(id));
+    public R<?> burndown(@RequestParam(required = false) Long projectId){
+        return R.success(taskService.burndown(projectId));
     }
     @GetMapping("/gantt")
     public R<?> gantt(@RequestParam(required = false) Long id){

@@ -1,4 +1,4 @@
-﻿package com.devtrack.modules.project.service.impl;
+package com.devtrack.modules.project.service.impl;
 
 
 import com.devtrack.common.exception.BusinessException;
@@ -70,8 +70,8 @@ public class ProjectServiceImpl implements ProjectService {
     public PageInfoVO listMyProjects(PageInfoDTO pageInfoDTO) {
         Long userId = UserContext.getUserId();
         String name = pageInfoDTO.getName();
-        Integer pageArg = pageInfoDTO.getPage() == null ? pageInfoDTO.getPageNum() : pageInfoDTO.getPage();
-        Integer sizeArg = pageInfoDTO.getLimit() == null ? pageInfoDTO.getPageSize() : pageInfoDTO.getLimit();
+        Integer pageArg = pageInfoDTO.getPage();
+        Integer sizeArg = pageInfoDTO.getLimit();
         int page = (pageArg == null || pageArg < 1) ? 1 : pageArg;
         int limit = (sizeArg == null || sizeArg < 1) ? 10 : sizeArg;
         int offset = (page - 1) * limit;

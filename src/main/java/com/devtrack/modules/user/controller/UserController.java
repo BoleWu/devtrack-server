@@ -1,4 +1,4 @@
-﻿package com.devtrack.modules.user.controller;
+package com.devtrack.modules.user.controller;
 
 import com.devtrack.common.result.R;
 import com.devtrack.modules.shared.dto.PageInfoDTO;

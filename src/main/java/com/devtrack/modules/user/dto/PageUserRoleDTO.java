@@ -5,8 +5,7 @@ import lombok.Data;
 @Data
 public class PageUserRoleDTO {
     private Long roleId;
+    private String name;
     private Integer page;
     private Integer limit;
-    private Integer pageNum;
-    private Integer pageSize;
 }

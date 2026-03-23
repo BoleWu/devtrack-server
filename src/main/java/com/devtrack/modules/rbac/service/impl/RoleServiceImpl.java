@@ -5,6 +5,7 @@ package com.devtrack.modules.rbac.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.devtrack.modules.rbac.dto.RoleDTO;
+import com.devtrack.modules.rbac.dto.RoleStatuUpdateDTO;
 import com.devtrack.modules.rbac.entity.Role;
 import com.devtrack.modules.rbac.vo.RoleVO;
 import com.devtrack.modules.shared.dto.PageInfoDTO;
@@ -21,13 +22,14 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public IPage<RoleListVo> queryRoleList(PageInfoDTO pageInfoDTO){
         String name = pageInfoDTO.getName();
-        Integer pageArg = pageInfoDTO.getPage() == null ? pageInfoDTO.getPageNum() : pageInfoDTO.getPage();
-        Integer sizeArg = pageInfoDTO.getLimit() == null ? pageInfoDTO.getPageSize() : pageInfoDTO.getLimit();
+        Integer status = (Integer) pageInfoDTO.getStatus();
+        Integer pageArg = pageInfoDTO.getPage();
+        Integer sizeArg = pageInfoDTO.getLimit();
         int page = (pageArg == null || pageArg < 1) ? 1 : pageArg;
         int limit = (sizeArg == null || sizeArg < 1) ? 10 : sizeArg;
-        Integer  offset= (page - 1) * limit;
+        int offset= (page - 1) * limit;
         Page<RoleListVo> pageData = new Page<>(offset, limit);
-        return roleMapper.queryRoleByList(pageData, name);
+        return roleMapper.queryRoleByList(pageData, name,status);
     }
     @Override
     public void createRole(RoleDTO roleDTO){
@@ -40,7 +42,9 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void updateRoleStatus(Long id, Integer status) {
+    public void updateRoleStatus(RoleStatuUpdateDTO roleStatuUpdateDTO) {
+        Long id = roleStatuUpdateDTO.getRoleId();
+        Integer status = roleStatuUpdateDTO.getStatus();
         Role role = new Role();
         role.setId(id);
         role.setStatus(status);

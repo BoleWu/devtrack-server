@@ -1,4 +1,4 @@
-﻿package com.devtrack.modules.user.vo;
+package com.devtrack.modules.user.vo;
 
 import lombok.Data;
 import java.util.List;
@@ -13,4 +13,6 @@ public class UserListVO {
     private String role;
     private String name;
     private Integer status;
+    private String email;
+    private String phone;
 }

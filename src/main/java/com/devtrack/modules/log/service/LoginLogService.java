@@ -1,4 +1,4 @@
-﻿package com.devtrack.modules.log.service;
+package com.devtrack.modules.log.service;
 
 import com.devtrack.modules.log.entity.LoginLog;
 

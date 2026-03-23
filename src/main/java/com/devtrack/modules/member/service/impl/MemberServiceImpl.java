@@ -1,4 +1,4 @@
-﻿package com.devtrack.modules.member.service.impl;
+package com.devtrack.modules.member.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -42,7 +42,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public String addListMember(AddProjectUserListDTO addProjectUserListDTO){
-        //鑾峰彇褰撳墠浜哄憳ID
+        //获取当前人员 ID
         Long userId = UserContext.getUserId();
         System.out.println("projectId---------->"+addProjectUserListDTO.getProjectId());
         //判断如果不是超级管理员或者项目负责人角色则返回无添加权限

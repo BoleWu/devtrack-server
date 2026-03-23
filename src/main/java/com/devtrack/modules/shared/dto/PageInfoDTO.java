@@ -9,9 +9,8 @@ import lombok.Data;
 @Data
 public class PageInfoDTO {
     private String name;
+    private Object status;
     private Integer page;
     private Integer limit;
-    private Integer pageNum;
-    private Integer pageSize;
 }
 

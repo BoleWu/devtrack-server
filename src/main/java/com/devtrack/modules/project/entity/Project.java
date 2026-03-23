@@ -1,4 +1,4 @@
-﻿package com.devtrack.modules.project.entity;
+package com.devtrack.modules.project.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
