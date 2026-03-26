@@ -2,6 +2,8 @@ package com.devtrack.modules.user.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.devtrack.common.exception.LoginException;
 import com.devtrack.common.exception.ServiceException;
 import com.devtrack.common.util.IpUtil;
@@ -133,17 +135,16 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public PageInfoVO getuserList(PageInfoDTO pageInfoDTO){
+    public IPage<UserListVO> getuserList(PageInfoDTO pageInfoDTO){
         String name = pageInfoDTO.getName();
         Integer pageArg = pageInfoDTO.getPage();
         Integer sizeArg = pageInfoDTO.getLimit();
         Integer status = (Integer) pageInfoDTO.getStatus();
         int page = (pageArg == null || pageArg < 1) ? 1 : pageArg;
         int limit = (sizeArg == null || sizeArg < 1) ? 10 : sizeArg;
-        Integer  offset= (page - 1) * limit;
-        List<UserListVO> userListVos=userMapper.userList(name,offset,limit,status);
-        Long total =userMapper.userListTotal(name, status);
-        return new PageInfoVO(userListVos,total,page,limit);
+        int offset= (page - 1) * limit;
+        Page<UserListVO> pageInfo= new Page<>(page, limit);
+        return userMapper.userList(pageInfo, name, status);
     }
 
 }

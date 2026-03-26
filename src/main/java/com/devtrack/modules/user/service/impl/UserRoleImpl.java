@@ -57,7 +57,7 @@ public class UserRoleImpl implements UserRoleService {
         int page = (pageArg == null || pageArg < 1) ? 1 : pageArg;
         int limit = (sizeArg == null || sizeArg < 1) ? 10 : sizeArg;
         int offset= (page - 1) * limit;
-        Page<UserVO> pageData = new Page<>(offset, limit);
+        Page<UserVO> pageData = new Page<>(page, limit);
         return userRoleMapper.queryUserRoleByList(pageData, roleId, name);
     }
 }

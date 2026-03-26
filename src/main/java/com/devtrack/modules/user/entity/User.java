@@ -25,5 +25,7 @@ public class User {
     private String phone;
     private String role;
     private Integer status;
+    private String createTime;
+    private String updateTime;
 }
 

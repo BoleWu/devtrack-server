@@ -15,4 +15,6 @@ public class UserListVO {
     private Integer status;
     private String email;
     private String phone;
+    private String createTime;
+    private List<?> roleList;
 }

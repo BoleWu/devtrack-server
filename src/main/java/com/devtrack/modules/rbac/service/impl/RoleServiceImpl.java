@@ -27,8 +27,7 @@ public class RoleServiceImpl implements RoleService {
         Integer sizeArg = pageInfoDTO.getLimit();
         int page = (pageArg == null || pageArg < 1) ? 1 : pageArg;
         int limit = (sizeArg == null || sizeArg < 1) ? 10 : sizeArg;
-        int offset= (page - 1) * limit;
-        Page<RoleListVo> pageData = new Page<>(offset, limit);
+        Page<RoleListVo> pageData = new Page<>(page, limit);
         return roleMapper.queryRoleByList(pageData, name,status);
     }
     @Override

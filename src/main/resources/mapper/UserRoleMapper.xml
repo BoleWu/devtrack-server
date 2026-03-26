@@ -8,16 +8,18 @@
         <result property="status" column="status"/>
     </resultMap>
     <select id="queryUserRoleByList" resultMap="userRoleListMap">
-        select id,username,name,status
-        from user_role ur
-        left join user u on ur.user_id = u.id
-        where 1=1
-          <if test="name != null and name != ''">
-            and (u.name like concat('%',#{name},'%')
-            or u.username like concat('%',#{name},'%'))
+        SELECT 
+            u.id,
+            u.username,
+            u.name,
+            u.status
+        FROM user_role ur
+        LEFT JOIN user u ON ur.user_id = u.id
+        WHERE ur.role_id = #{roleId}
+        <if test="name != null and name != ''">
+            AND (u.name LIKE CONCAT('%',#{name},'%') OR u.username LIKE CONCAT('%',#{name},'%'))
         </if>
-        and ur.role_id = #{roleId}
         and u.status = 0
-        order by id
+        ORDER BY u.id
     </select>
 </mapper>

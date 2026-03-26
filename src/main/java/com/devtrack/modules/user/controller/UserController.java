@@ -39,7 +39,7 @@ public class UserController {
     
 
     @RequestMapping("/queryUserInfoByList")
-    public R<PageInfoVO> queryUserInfoByList(@Validated @RequestBody PageInfoDTO pageInfoDTO) {
+    public R<?> queryUserInfoByList(@Validated @RequestBody PageInfoDTO pageInfoDTO) {
         return R.success(userService.getuserList(pageInfoDTO));
     }
 }
