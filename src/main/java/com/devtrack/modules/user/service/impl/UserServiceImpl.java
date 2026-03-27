@@ -15,7 +15,6 @@ import com.devtrack.modules.user.mapper.UserMapper;
 import com.devtrack.modules.user.service.UserService;
 import com.devtrack.modules.log.service.LoginLogService;
 import com.devtrack.modules.user.vo.LoginVO;
-import com.devtrack.modules.shared.vo.PageInfoVO;
 import com.devtrack.modules.user.vo.UserListVO;
 import com.devtrack.modules.user.vo.UserVO;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +23,6 @@ import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpServletRequest;
 
 import com.devtrack.common.util.JwtUtil;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -55,7 +52,7 @@ public class UserServiceImpl implements UserService {
         user.setPhone(userRegisterDTO.getPhone());
         user.setName(userRegisterDTO.getName());
         // 默认启用状态
-        user.setStatus(1);
+        user.setStatus(0);
 
         // 保存用户到数据库
         int insert = userMapper.insert(user);
@@ -142,7 +139,6 @@ public class UserServiceImpl implements UserService {
         Integer status = (Integer) pageInfoDTO.getStatus();
         int page = (pageArg == null || pageArg < 1) ? 1 : pageArg;
         int limit = (sizeArg == null || sizeArg < 1) ? 10 : sizeArg;
-        int offset= (page - 1) * limit;
         Page<UserListVO> pageInfo= new Page<>(page, limit);
         return userMapper.userList(pageInfo, name, status);
     }

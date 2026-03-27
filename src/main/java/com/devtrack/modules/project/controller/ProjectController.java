@@ -31,10 +31,6 @@ public class ProjectController {
     public R<ProjectVO> createProject(@Validated @RequestBody ProjectDTO projectDTO) {         
         return R.success(projectService.createProject(projectDTO));
     }
-    // @GetMapping("/getProjectByList")
-    // public R<PageInfoVO> listMyProjects(PageInfoDTO pageInfoDTO) {
-    //     return R.success(projectService.listMyProjects(pageInfoDTO));
-    // }
     @PostMapping("/getProjectByList")
     public R<PageInfoVO> listMyProjectsPost(@Validated@RequestBody PageInfoDTO pageInfoDTO) {
         return R.success(projectService.listMyProjects(pageInfoDTO));
