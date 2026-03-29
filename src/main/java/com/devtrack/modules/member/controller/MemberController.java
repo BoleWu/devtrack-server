@@ -1,5 +1,6 @@
 package com.devtrack.modules.member.controller;
 
+import com.devtrack.common.annotation.RequirePermission;
 import com.devtrack.common.result.R;
 import com.devtrack.modules.member.dto.AddProjectUserListDTO;
 import com.devtrack.modules.member.service.MemberService;
@@ -17,10 +18,12 @@ public class MemberController {
     private final MemberService memberService;
 
     @RequestMapping("/addMember")
+    @RequirePermission("project:addMember")
     public R<?> addMember(Long projectId, Long memberId) {
         memberService.addMember(projectId, memberId);
         return R.success("成功");
     }
+    @RequirePermission("project:addListMember")
     @PostMapping("/addListMember")
     public R<?> addListMember(@Validated @RequestBody AddProjectUserListDTO addProjectUserListDTO) {
         System.out.println("Received projectId: " + addProjectUserListDTO.getProjectId());

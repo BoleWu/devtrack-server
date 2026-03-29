@@ -1,6 +1,7 @@
 package com.devtrack.common.aop;
 
 import com.devtrack.common.exception.BusinessException;
+import com.devtrack.common.exception.ServiceException;
 import com.devtrack.common.util.UserContext;
 import com.devtrack.modules.rbac.service.RbacService;
 import com.devtrack.common.annotation.RequirePermission;
@@ -19,11 +20,12 @@ public class PermissionAspect {
     @Around("@annotation(requirePermission)")
     public Object checkPermission(ProceedingJoinPoint joinPoint, RequirePermission requirePermission) throws Throwable {
         String permissionCode = requirePermission.value();
-        Long userId = UserContext.getUserId(); // 当前用户
+        // 当前用户
+        Long userId = UserContext.getUserId();
         // 校验接口权限
         boolean hasPermission = rbacService.hasPermission(userId, permissionCode);
         if (!hasPermission) {
-            throw new BusinessException("无接口访问权限: " + permissionCode);
+            throw new ServiceException("无权限访问接口: " + permissionCode);
         }
         // 权限通过，继续执行
         return joinPoint.proceed();

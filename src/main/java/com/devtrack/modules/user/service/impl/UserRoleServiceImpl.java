@@ -2,9 +2,9 @@ package com.devtrack.modules.user.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.devtrack.modules.user.dto.PageUserRoleDTO;
 import com.devtrack.modules.user.dto.UserRoleAddDTO;
 import com.devtrack.modules.user.entity.UserRole;
@@ -13,13 +13,15 @@ import com.devtrack.modules.user.service.UserRoleService;
 import com.devtrack.modules.user.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class UserRoleImpl implements UserRoleService {
+public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> implements UserRoleService {
     @Autowired
     private  UserRoleMapper userRoleMapper;
+
     @Override
     public void addUserRole(UserRoleAddDTO userRoleAddDTO) {
         Long roleId = userRoleAddDTO.getRoleId();
@@ -36,16 +38,14 @@ public class UserRoleImpl implements UserRoleService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteUserRole(UserRoleAddDTO userRoleAddDTO) {
         Long roleId = userRoleAddDTO.getRoleId();
         List<Long> userIdList = userRoleAddDTO.getUserIdList();
-        for (Long userId : userIdList) {
-            userRoleMapper.delete(
-                new LambdaQueryWrapper<UserRole>()
-                    .eq(UserRole::getUserId, userId)
-                    .eq(UserRole::getRoleId, roleId)
-            );
-        }
+        LambdaQueryWrapper<UserRole> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(UserRole::getRoleId, roleId)
+                .in(UserRole::getUserId, userIdList);
+        this.remove(wrapper);
     }
 
     @Override
@@ -56,7 +56,6 @@ public class UserRoleImpl implements UserRoleService {
         Integer sizeArg = pageUserRoleDTO.getLimit();
         int page = (pageArg == null || pageArg < 1) ? 1 : pageArg;
         int limit = (sizeArg == null || sizeArg < 1) ? 10 : sizeArg;
-        int offset= (page - 1) * limit;
         Page<UserVO> pageData = new Page<>(page, limit);
         return userRoleMapper.queryUserRoleByList(pageData, roleId, name);
     }

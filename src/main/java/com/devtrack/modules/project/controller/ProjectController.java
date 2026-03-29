@@ -32,7 +32,7 @@ public class ProjectController {
         return R.success(projectService.createProject(projectDTO));
     }
     @PostMapping("/getProjectByList")
-    public R<PageInfoVO> listMyProjectsPost(@Validated@RequestBody PageInfoDTO pageInfoDTO) {
+    public R<PageInfoVO> listMyProjectsPost(@Validated @RequestBody PageInfoDTO pageInfoDTO) {
         return R.success(projectService.listMyProjects(pageInfoDTO));
     }
     @GetMapping("/{projectId}")
@@ -63,7 +63,9 @@ public class ProjectController {
         projectService.deleteProject(projectId);
         return R.success("删除成功");
     }
+
     @PostMapping("/updateProject")
+    @RequirePermission("project:updateProject")
     public R<String> updateProject(@Validated @RequestBody UpdateProject updateProject) {
         projectService.updateProject(updateProject);
         return R.success("更新成功");

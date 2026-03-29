@@ -1,5 +1,6 @@
 package com.devtrack.modules.user.controller;
 
+import com.devtrack.common.annotation.RequirePermission;
 import com.devtrack.common.result.R;
 import com.devtrack.modules.user.dto.PageUserRoleDTO;
 import com.devtrack.modules.user.dto.UserRoleAddDTO;
@@ -17,11 +18,13 @@ public class UserRoleController {
     @Autowired
     private UserRoleService userRoleService;
     @RequestMapping("/addUserRole")
+    @RequirePermission("userRole:add")
     public R<?> addUserRole(@Validated @RequestBody UserRoleAddDTO userRoleAddDTO) {
         userRoleService.addUserRole(userRoleAddDTO);
         return R.success("角色人员添加成功");
     }
     @RequestMapping("/deleteUserRole")
+    @RequirePermission("userRole:delete")
     public R<?> deleteUserRole(@Validated @RequestBody UserRoleAddDTO userRoleAddDTO) {
         userRoleService.deleteUserRole(userRoleAddDTO);
         return R.success("角色人员删除成功");

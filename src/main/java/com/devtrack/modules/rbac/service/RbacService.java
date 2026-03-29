@@ -21,7 +21,9 @@ public class RbacService {
                                 .eq(UserRole::getUserId, userId)
                 )
                 .stream().map(UserRole::getRoleId).toList();
-        if (roleIds.isEmpty()) return false;
+        if (roleIds.isEmpty()) {
+            return false;
+        }
         int count = rolePermissionMapper.countRolePermission(roleIds, permissionCode);
         System.out.println("权限校验");
         return count > 0;

@@ -3,6 +3,7 @@ package com.devtrack.modules.rbac.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.devtrack.common.exception.ServiceException;
 import com.devtrack.modules.rbac.dto.PermissionDTO;
@@ -12,9 +13,10 @@ import com.devtrack.modules.rbac.mapper.PermissionMapper;
 import com.devtrack.modules.rbac.service.PermissionServce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
-public class PerMissionImpl implements PermissionServce {
+public class PermissionImpl implements PermissionServce {
     @Autowired
     private PermissionMapper permissionMapper;
     @Override
@@ -29,6 +31,9 @@ public class PerMissionImpl implements PermissionServce {
 
     @Override
     public String deletePermission(Long id) {
+            if (id == null){
+                throw new ServiceException("权限ID不能为空");
+            }
             Permission permission = permissionMapper.selectById(id);
             if (permission == null){
                 throw new ServiceException("权限不存在");
@@ -43,22 +48,35 @@ public class PerMissionImpl implements PermissionServce {
         int update =permissionMapper.updateById(permission);
         return update > 0 ? "更新成功" : "更新失败";
     }
+    @Override
+    public IPage<Permission> queryPermissionList(QueryPermissonDTO queryPermissonDTO) {
+        Page<Permission> page = new Page<>(queryPermissonDTO.getPage(), queryPermissonDTO.getLimit());
+        String keyword = queryPermissonDTO.getKeyword();
+        LambdaQueryWrapper<Permission> qw = new LambdaQueryWrapper<>();
+
+        if (StringUtils.hasText(keyword)) {
+            qw.and(wrapper -> wrapper
+                    .like(Permission::getName, keyword)
+                    .or()
+                    .like(Permission::getCode, keyword)
+                    .or()
+                    .like(Permission::getPath, keyword)
+            );
+        }
+        return permissionMapper.selectPage(page,qw);
+    }
+
+
     public Permission permissionInfo(PermissionDTO permissionDTO){
         Permission permission = new Permission();
+        if (permissionDTO.getId() != null){
+            permission.setId(permissionDTO.getId());
+        }
         permission.setName(permissionDTO.getName());
         permission.setCode(permissionDTO.getCode());
         permission.setDescription(permissionDTO.getDescription());
         permission.setMethod(permissionDTO.getMethod());
         permission.setPath(permissionDTO.getPath());
         return permission;
-    }
-    @Override
-    public IPage<Permission> queryPermissionList(QueryPermissonDTO queryPermissonDTO) {
-        Page<Permission> page = new Page<>(queryPermissonDTO.getPage(), queryPermissonDTO.getLimit());
-        return permissionMapper.selectPage(page, new LambdaQueryWrapper<Permission>()
-                .like(Permission::getName, queryPermissonDTO.getName())
-                .like(Permission::getCode, queryPermissonDTO.getCode())
-                .like(Permission::getPath, queryPermissonDTO.getCode())
-        );
     }
 }
