@@ -30,6 +30,11 @@ jwt:
   expiration: 86400000
 # Security Configuration
 
+# Database Initialization
+database:
+  init:
+    sql-path: classpath*:db/sql/*.sql
+
 # HandlerInterceptor
 handler:
   interceptor:

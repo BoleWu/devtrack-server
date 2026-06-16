@@ -13,6 +13,7 @@
 
  Date: 26/03/2026 17:48:48
 */
+CREATE DATABASE devtrack;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;

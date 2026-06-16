@@ -1,181 +1,69 @@
-2026-06-15T14:19:24.284+08:00  INFO 10284 --- [main] com.devtrack.DevtrackServerApplication   : Starting DevtrackServerApplication using Java 17.0.19 with PID 10284 (/Users/friday/code/devtrack-server/target/classes started by friday in /Users/friday/code/devtrack-server)
-2026-06-15T14:19:24.285+08:00  INFO 10284 --- [main] com.devtrack.DevtrackServerApplication   : No active profile set, falling back to 1 default profile: "default"
-2026-06-15T14:19:24.737+08:00  INFO 10284 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2026-06-15T14:19:24.740+08:00  INFO 10284 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-06-15T14:19:24.740+08:00  INFO 10284 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
-2026-06-15T14:19:24.762+08:00  INFO 10284 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2026-06-15T14:19:24.762+08:00  INFO 10284 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 464 ms
-2026-06-15T14:19:24.848+08:00  WARN 10284 --- [main] c.b.m.core.injector.DefaultSqlInjector   : class com.devtrack.modules.rbac.entity.RolePermission ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-2026-06-15T14:19:24.866+08:00  WARN 10284 --- [main] c.b.m.core.injector.DefaultSqlInjector   : class com.devtrack.modules.user.entity.UserRole ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-2026-06-15T14:19:25.097+08:00  INFO 10284 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5ca22e19, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@29d3d0fb, org.springframework.security.web.context.SecurityContextHolderFilter@45707f76, org.springframework.security.web.header.HeaderWriterFilter@46e388ec, org.springframework.web.filter.CorsFilter@1bfa3893, org.springframework.security.web.authentication.logout.LogoutFilter@1846ad0f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@682266d8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@17354708, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@70f85235, org.springframework.security.web.access.ExceptionTranslationFilter@74fc3fc7, org.springframework.security.web.access.intercept.AuthorizationFilter@44aed6a4]
-2026-06-15T14:19:25.169+08:00  INFO 10284 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2026-06-15T14:19:25.172+08:00  INFO 10284 --- [main] com.devtrack.DevtrackServerApplication   : Started DevtrackServerApplication in 1.058 seconds (process running for 1.257)
-2026-06-15T15:55:04.043+08:00  INFO 10284 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-06-15T15:55:04.044+08:00  INFO 10284 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-06-15T15:55:04.047+08:00  INFO 10284 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
-2026-06-15T15:55:04.143+08:00  INFO 10284 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-06-15T15:55:04.283+08:00  INFO 10284 --- [http-nio-8080-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5031ef1
-2026-06-15T15:55:04.283+08:00  INFO 10284 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-06-15T15:55:06.243+08:00  INFO 10284 --- [http-nio-8080-exec-2] com.devtrack.common.util.JwtUtil         : 生成token userId=3012, role=USER
-2026-06-15T15:55:06.481+08:00  INFO 10284 --- [http-nio-8080-exec-3] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:06.482+08:00  INFO 10284 --- [http-nio-8080-exec-3] c.d.i.AuthenticationInterceptor          : url---------------------->/api/dashboard/stats
-2026-06-15T15:55:06.482+08:00  INFO 10284 --- [http-nio-8080-exec-5] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:06.482+08:00  INFO 10284 --- [http-nio-8080-exec-3] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:06.482+08:00  INFO 10284 --- [http-nio-8080-exec-4] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:06.483+08:00  INFO 10284 --- [http-nio-8080-exec-5] c.d.i.AuthenticationInterceptor          : url---------------------->/api/dashboard/progress
-2026-06-15T15:55:06.483+08:00  INFO 10284 --- [http-nio-8080-exec-4] c.d.i.AuthenticationInterceptor          : url---------------------->/api/project/getProjectByList
-2026-06-15T15:55:06.483+08:00  INFO 10284 --- [http-nio-8080-exec-4] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:06.483+08:00  INFO 10284 --- [http-nio-8080-exec-5] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:06.483+08:00  INFO 10284 --- [http-nio-8080-exec-6] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:06.484+08:00  INFO 10284 --- [http-nio-8080-exec-6] c.d.i.AuthenticationInterceptor          : url---------------------->/api/dashboard/burn-down
-2026-06-15T15:55:06.484+08:00  INFO 10284 --- [http-nio-8080-exec-6] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:06.484+08:00  INFO 10284 --- [http-nio-8080-exec-7] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:06.484+08:00  INFO 10284 --- [http-nio-8080-exec-7] c.d.i.AuthenticationInterceptor          : url---------------------->/api/dashboard/gantt
-2026-06-15T15:55:06.484+08:00  INFO 10284 --- [http-nio-8080-exec-7] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:06.510+08:00  INFO 10284 --- [http-nio-8080-exec-5] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:06.510+08:00  INFO 10284 --- [http-nio-8080-exec-4] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:06.510+08:00  INFO 10284 --- [http-nio-8080-exec-6] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:06.510+08:00  INFO 10284 --- [http-nio-8080-exec-7] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:06.510+08:00  INFO 10284 --- [http-nio-8080-exec-3] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:11.806+08:00  INFO 10284 --- [http-nio-8080-exec-8] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:11.807+08:00  INFO 10284 --- [http-nio-8080-exec-8] c.d.i.AuthenticationInterceptor          : url---------------------->/api/project/getProjectByList
-2026-06-15T15:55:11.807+08:00  INFO 10284 --- [http-nio-8080-exec-8] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:11.809+08:00  INFO 10284 --- [http-nio-8080-exec-8] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:12.909+08:00  INFO 10284 --- [http-nio-8080-exec-9] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:12.909+08:00  INFO 10284 --- [http-nio-8080-exec-9] c.d.i.AuthenticationInterceptor          : url---------------------->/api/role/queryRoleBylist
-2026-06-15T15:55:12.909+08:00  INFO 10284 --- [http-nio-8080-exec-9] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:12.911+08:00  INFO 10284 --- [http-nio-8080-exec-9] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:13.893+08:00  INFO 10284 --- [http-nio-8080-exec-10] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:13.894+08:00  INFO 10284 --- [http-nio-8080-exec-10] c.d.i.AuthenticationInterceptor          : url---------------------->/api/permission/queryPermissionByList
-2026-06-15T15:55:13.894+08:00  INFO 10284 --- [http-nio-8080-exec-10] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:13.896+08:00  INFO 10284 --- [http-nio-8080-exec-10] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:15.231+08:00  INFO 10284 --- [http-nio-8080-exec-1] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:15.232+08:00  INFO 10284 --- [http-nio-8080-exec-1] c.d.i.AuthenticationInterceptor          : url---------------------->/api/auth/queryUserInfoByList
-2026-06-15T15:55:15.232+08:00  INFO 10284 --- [http-nio-8080-exec-1] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:15.234+08:00  INFO 10284 --- [http-nio-8080-exec-1] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:16.554+08:00  INFO 10284 --- [http-nio-8080-exec-2] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:16.554+08:00  INFO 10284 --- [http-nio-8080-exec-2] c.d.i.AuthenticationInterceptor          : url---------------------->/api/project/getProjectByList
-2026-06-15T15:55:16.554+08:00  INFO 10284 --- [http-nio-8080-exec-2] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:16.557+08:00  INFO 10284 --- [http-nio-8080-exec-2] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:18.009+08:00  INFO 10284 --- [http-nio-8080-exec-7] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:18.010+08:00  INFO 10284 --- [http-nio-8080-exec-7] c.d.i.AuthenticationInterceptor          : url---------------------->/api/project/getProjectByList
-2026-06-15T15:55:18.010+08:00  INFO 10284 --- [http-nio-8080-exec-7] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:18.012+08:00  INFO 10284 --- [http-nio-8080-exec-7] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:19.984+08:00  INFO 10284 --- [http-nio-8080-exec-3] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:19.984+08:00  INFO 10284 --- [http-nio-8080-exec-3] c.d.i.AuthenticationInterceptor          : url---------------------->/api/dashboard/stats
-2026-06-15T15:55:19.984+08:00  INFO 10284 --- [http-nio-8080-exec-3] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:19.985+08:00  INFO 10284 --- [http-nio-8080-exec-5] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:19.985+08:00  INFO 10284 --- [http-nio-8080-exec-5] c.d.i.AuthenticationInterceptor          : url---------------------->/api/project/getProjectByList
-2026-06-15T15:55:19.985+08:00  INFO 10284 --- [http-nio-8080-exec-5] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:19.986+08:00  INFO 10284 --- [http-nio-8080-exec-6] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:19.986+08:00  INFO 10284 --- [http-nio-8080-exec-6] c.d.i.AuthenticationInterceptor          : url---------------------->/api/dashboard/progress
-2026-06-15T15:55:19.986+08:00  INFO 10284 --- [http-nio-8080-exec-6] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:19.986+08:00  INFO 10284 --- [http-nio-8080-exec-4] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:19.986+08:00  INFO 10284 --- [http-nio-8080-exec-8] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:19.987+08:00  INFO 10284 --- [http-nio-8080-exec-4] c.d.i.AuthenticationInterceptor          : url---------------------->/api/dashboard/burn-down
-2026-06-15T15:55:19.987+08:00  INFO 10284 --- [http-nio-8080-exec-8] c.d.i.AuthenticationInterceptor          : url---------------------->/api/dashboard/gantt
-2026-06-15T15:55:19.987+08:00  INFO 10284 --- [http-nio-8080-exec-3] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:19.987+08:00  INFO 10284 --- [http-nio-8080-exec-4] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:19.987+08:00  INFO 10284 --- [http-nio-8080-exec-8] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:19.987+08:00  INFO 10284 --- [http-nio-8080-exec-5] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:19.987+08:00  INFO 10284 --- [http-nio-8080-exec-6] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:19.988+08:00  INFO 10284 --- [http-nio-8080-exec-4] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:19.988+08:00  INFO 10284 --- [http-nio-8080-exec-8] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:22.679+08:00  INFO 10284 --- [http-nio-8080-exec-9] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:22.679+08:00  INFO 10284 --- [http-nio-8080-exec-9] c.d.i.AuthenticationInterceptor          : url---------------------->/api/permission/queryPermissionByList
-2026-06-15T15:55:22.679+08:00  INFO 10284 --- [http-nio-8080-exec-9] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:22.681+08:00  INFO 10284 --- [http-nio-8080-exec-9] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:23.516+08:00  INFO 10284 --- [http-nio-8080-exec-10] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:23.516+08:00  INFO 10284 --- [http-nio-8080-exec-10] c.d.i.AuthenticationInterceptor          : url---------------------->/api/role/queryRoleBylist
-2026-06-15T15:55:23.517+08:00  INFO 10284 --- [http-nio-8080-exec-10] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:23.519+08:00  INFO 10284 --- [http-nio-8080-exec-10] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:25.121+08:00  INFO 10284 --- [http-nio-8080-exec-1] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:25.121+08:00  INFO 10284 --- [http-nio-8080-exec-1] c.d.i.AuthenticationInterceptor          : url---------------------->/api/auth/queryUserInfoByList
-2026-06-15T15:55:25.121+08:00  INFO 10284 --- [http-nio-8080-exec-1] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:25.122+08:00  INFO 10284 --- [http-nio-8080-exec-1] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:32.916+08:00  INFO 10284 --- [http-nio-8080-exec-2] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:32.919+08:00  INFO 10284 --- [http-nio-8080-exec-2] c.d.i.AuthenticationInterceptor          : url---------------------->/api/project/getProjectByList
-2026-06-15T15:55:32.919+08:00  INFO 10284 --- [http-nio-8080-exec-2] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:32.921+08:00  INFO 10284 --- [http-nio-8080-exec-2] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:33.938+08:00  INFO 10284 --- [http-nio-8080-exec-7] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:33.939+08:00  INFO 10284 --- [http-nio-8080-exec-7] c.d.i.AuthenticationInterceptor          : url---------------------->/api/project/getProjectByList
-2026-06-15T15:55:33.939+08:00  INFO 10284 --- [http-nio-8080-exec-7] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:33.941+08:00  INFO 10284 --- [http-nio-8080-exec-7] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:35.249+08:00  INFO 10284 --- [http-nio-8080-exec-8] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:35.250+08:00  INFO 10284 --- [http-nio-8080-exec-8] c.d.i.AuthenticationInterceptor          : url---------------------->/api/dashboard/stats
-2026-06-15T15:55:35.250+08:00  INFO 10284 --- [http-nio-8080-exec-4] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:35.250+08:00  INFO 10284 --- [http-nio-8080-exec-4] c.d.i.AuthenticationInterceptor          : url---------------------->/api/project/getProjectByList
-2026-06-15T15:55:35.250+08:00  INFO 10284 --- [http-nio-8080-exec-6] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:35.250+08:00  INFO 10284 --- [http-nio-8080-exec-4] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:35.250+08:00  INFO 10284 --- [http-nio-8080-exec-6] c.d.i.AuthenticationInterceptor          : url---------------------->/api/dashboard/progress
-2026-06-15T15:55:35.250+08:00  INFO 10284 --- [http-nio-8080-exec-6] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:35.250+08:00  INFO 10284 --- [http-nio-8080-exec-8] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:35.252+08:00  INFO 10284 --- [http-nio-8080-exec-3] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:35.252+08:00  INFO 10284 --- [http-nio-8080-exec-3] c.d.i.AuthenticationInterceptor          : url---------------------->/api/dashboard/burn-down
-2026-06-15T15:55:35.252+08:00  INFO 10284 --- [http-nio-8080-exec-6] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:35.252+08:00  INFO 10284 --- [http-nio-8080-exec-3] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:35.252+08:00  INFO 10284 --- [http-nio-8080-exec-5] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T15:55:35.252+08:00  INFO 10284 --- [http-nio-8080-exec-8] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:35.252+08:00  INFO 10284 --- [http-nio-8080-exec-5] c.d.i.AuthenticationInterceptor          : url---------------------->/api/dashboard/gantt
-2026-06-15T15:55:35.252+08:00  INFO 10284 --- [http-nio-8080-exec-5] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T15:55:35.254+08:00  INFO 10284 --- [http-nio-8080-exec-3] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:35.254+08:00  INFO 10284 --- [http-nio-8080-exec-4] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T15:55:35.253+08:00  INFO 10284 --- [http-nio-8080-exec-5] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T16:02:38.164+08:00  INFO 10284 --- [http-nio-8080-exec-9] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T16:02:38.167+08:00  INFO 10284 --- [http-nio-8080-exec-9] c.d.i.AuthenticationInterceptor          : url---------------------->/api/project/getProjectByList
-2026-06-15T16:02:38.167+08:00  INFO 10284 --- [http-nio-8080-exec-9] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T16:02:38.168+08:00  INFO 10284 --- [http-nio-8080-exec-9] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T16:02:39.880+08:00  INFO 10284 --- [http-nio-8080-exec-10] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T16:02:39.880+08:00  INFO 10284 --- [http-nio-8080-exec-10] c.d.i.AuthenticationInterceptor          : url---------------------->/api/project/getProjectByList
-2026-06-15T16:02:39.880+08:00  INFO 10284 --- [http-nio-8080-exec-10] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T16:02:39.882+08:00  INFO 10284 --- [http-nio-8080-exec-10] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T16:02:41.349+08:00  INFO 10284 --- [http-nio-8080-exec-1] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T16:02:41.350+08:00  INFO 10284 --- [http-nio-8080-exec-1] c.d.i.AuthenticationInterceptor          : url---------------------->/api/auth/queryUserInfoByList
-2026-06-15T16:02:41.350+08:00  INFO 10284 --- [http-nio-8080-exec-1] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T16:02:41.351+08:00  INFO 10284 --- [http-nio-8080-exec-1] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T16:02:42.131+08:00  INFO 10284 --- [http-nio-8080-exec-2] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T16:02:42.132+08:00  INFO 10284 --- [http-nio-8080-exec-2] c.d.i.AuthenticationInterceptor          : url---------------------->/api/project/getProjectByList
-2026-06-15T16:02:42.132+08:00  INFO 10284 --- [http-nio-8080-exec-2] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T16:02:42.133+08:00  INFO 10284 --- [http-nio-8080-exec-2] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T16:02:43.077+08:00  INFO 10284 --- [http-nio-8080-exec-7] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T16:02:43.078+08:00  INFO 10284 --- [http-nio-8080-exec-7] c.d.i.AuthenticationInterceptor          : url---------------------->/api/dashboard/stats
-2026-06-15T16:02:43.078+08:00  INFO 10284 --- [http-nio-8080-exec-5] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T16:02:43.078+08:00  INFO 10284 --- [http-nio-8080-exec-7] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T16:02:43.078+08:00  INFO 10284 --- [http-nio-8080-exec-5] c.d.i.AuthenticationInterceptor          : url---------------------->/api/project/getProjectByList
-2026-06-15T16:02:43.078+08:00  INFO 10284 --- [http-nio-8080-exec-3] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T16:02:43.078+08:00  INFO 10284 --- [http-nio-8080-exec-5] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T16:02:43.078+08:00  INFO 10284 --- [http-nio-8080-exec-3] c.d.i.AuthenticationInterceptor          : url---------------------->/api/dashboard/progress
-2026-06-15T16:02:43.078+08:00  INFO 10284 --- [http-nio-8080-exec-3] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T16:02:43.079+08:00  INFO 10284 --- [http-nio-8080-exec-5] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T16:02:43.079+08:00  INFO 10284 --- [http-nio-8080-exec-3] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T16:02:43.080+08:00  INFO 10284 --- [http-nio-8080-exec-7] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T16:02:43.080+08:00  INFO 10284 --- [http-nio-8080-exec-8] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T16:02:43.080+08:00  INFO 10284 --- [http-nio-8080-exec-6] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T16:02:43.081+08:00  INFO 10284 --- [http-nio-8080-exec-8] c.d.i.AuthenticationInterceptor          : url---------------------->/api/dashboard/burn-down
-2026-06-15T16:02:43.081+08:00  INFO 10284 --- [http-nio-8080-exec-8] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T16:02:43.081+08:00  INFO 10284 --- [http-nio-8080-exec-6] c.d.i.AuthenticationInterceptor          : url---------------------->/api/dashboard/gantt
-2026-06-15T16:02:43.081+08:00  INFO 10284 --- [http-nio-8080-exec-6] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T16:02:43.082+08:00  INFO 10284 --- [http-nio-8080-exec-8] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T16:02:43.082+08:00  INFO 10284 --- [http-nio-8080-exec-6] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T16:02:47.911+08:00  INFO 10284 --- [http-nio-8080-exec-4] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T16:02:47.911+08:00  INFO 10284 --- [http-nio-8080-exec-4] c.d.i.AuthenticationInterceptor          : url---------------------->/api/role/queryRoleBylist
-2026-06-15T16:02:47.911+08:00  INFO 10284 --- [http-nio-8080-exec-4] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T16:02:47.913+08:00  INFO 10284 --- [http-nio-8080-exec-4] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T16:02:49.048+08:00  INFO 10284 --- [http-nio-8080-exec-9] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T16:02:49.048+08:00  INFO 10284 --- [http-nio-8080-exec-9] c.d.i.AuthenticationInterceptor          : url---------------------->/api/permission/queryPermissionByList
-2026-06-15T16:02:49.048+08:00  INFO 10284 --- [http-nio-8080-exec-9] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T16:02:49.050+08:00  INFO 10284 --- [http-nio-8080-exec-9] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T16:02:51.142+08:00  INFO 10284 --- [http-nio-8080-exec-10] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T16:02:51.142+08:00  INFO 10284 --- [http-nio-8080-exec-10] c.d.i.AuthenticationInterceptor          : url---------------------->/api/auth/queryUserInfoByList
-2026-06-15T16:02:51.142+08:00  INFO 10284 --- [http-nio-8080-exec-10] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T16:02:51.143+08:00  INFO 10284 --- [http-nio-8080-exec-10] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T16:02:51.460+08:00  INFO 10284 --- [http-nio-8080-exec-1] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T16:02:51.461+08:00  INFO 10284 --- [http-nio-8080-exec-1] c.d.i.AuthenticationInterceptor          : url---------------------->/api/project/getProjectByList
-2026-06-15T16:02:51.461+08:00  INFO 10284 --- [http-nio-8080-exec-1] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T16:02:51.462+08:00  INFO 10284 --- [http-nio-8080-exec-1] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T16:02:52.577+08:00  INFO 10284 --- [http-nio-8080-exec-2] c.d.i.AuthenticationInterceptor          : 开始了----------------------
-2026-06-15T16:02:52.577+08:00  INFO 10284 --- [http-nio-8080-exec-2] c.d.i.AuthenticationInterceptor          : url---------------------->/api/role/queryRoleBylist
-2026-06-15T16:02:52.577+08:00  INFO 10284 --- [http-nio-8080-exec-2] c.d.i.AuthenticationInterceptor          : authHeader-------->Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MzAxMiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3ODE1MTAxMDYsImV4cCI6MTc4MTU5NjUwNn0.E5CZoxB3_e6CApcfVe3N0ESMHZEThhF25zyW2hHn_DU
-2026-06-15T16:02:52.578+08:00  INFO 10284 --- [http-nio-8080-exec-2] c.d.i.AuthenticationInterceptor          : 上下文注入 userId=3012, role=USER
-2026-06-15T16:03:33.661+08:00  INFO 10284 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-06-15T16:03:33.664+08:00  INFO 10284 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-16T17:29:12.050+08:00  INFO 58801 --- [main] com.devtrack.ScanAllControllers          : Starting ScanAllControllers using Java 17.0.19 with PID 58801 (started by friday in /Users/friday/code/devtrack-server)
+2026-06-16T17:29:12.052+08:00  INFO 58801 --- [main] com.devtrack.ScanAllControllers          : No active profile set, falling back to 1 default profile: "default"
+2026-06-16T17:29:12.500+08:00  WARN 58801 --- [main] c.b.m.core.injector.DefaultSqlInjector   : class com.devtrack.modules.rbac.entity.RolePermission ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-16T17:29:12.522+08:00  WARN 58801 --- [main] c.b.m.core.injector.DefaultSqlInjector   : class com.devtrack.modules.user.entity.UserRole ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-16T17:29:12.807+08:00  INFO 58801 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6ce2e079, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3e39e0fb, org.springframework.security.web.context.SecurityContextHolderFilter@3b362f1, org.springframework.security.web.header.HeaderWriterFilter@3bab95ca, org.springframework.web.filter.CorsFilter@260d48f5, org.springframework.security.web.authentication.logout.LogoutFilter@4403bff8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@79cdf2d4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@67d5ac2f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@148ab138, org.springframework.security.web.access.ExceptionTranslationFilter@27261190, org.springframework.security.web.access.intercept.AuthorizationFilter@2eb6d34a]
+2026-06-16T17:29:12.914+08:00  INFO 58801 --- [main] com.devtrack.ScanAllControllers          : Started ScanAllControllers in 0.966 seconds (process running for 1.3)
+2026-06-16T17:29:13.060+08:00  INFO 58801 --- [main] org.reflections.Reflections              : Reflections took 23 ms to scan 1 urls, producing 47 keys and 325 values
+2026-06-16T17:29:13.090+08:00  INFO 58801 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-16T17:29:13.200+08:00  INFO 58801 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3b3190fd
+2026-06-16T17:29:13.201+08:00  INFO 58801 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-16T17:29:13.290+08:00  INFO 58801 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-16T17:29:13.293+08:00  INFO 58801 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-16T17:37:35.369+08:00  INFO 59736 --- [main] com.devtrack.DevtrackServerApplication   : Starting DevtrackServerApplication using Java 17.0.19 with PID 59736 (/Users/friday/code/devtrack-server/target/classes started by friday in /Users/friday/code/devtrack-server)
+2026-06-16T17:37:35.369+08:00  INFO 59736 --- [main] com.devtrack.DevtrackServerApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-06-16T17:37:35.788+08:00  INFO 59736 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2026-06-16T17:37:35.792+08:00  INFO 59736 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-16T17:37:35.792+08:00  INFO 59736 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
+2026-06-16T17:37:35.819+08:00  INFO 59736 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-16T17:37:35.819+08:00  INFO 59736 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 438 ms
+2026-06-16T17:37:35.922+08:00  WARN 59736 --- [main] c.b.m.core.injector.DefaultSqlInjector   : class com.devtrack.modules.rbac.entity.RolePermission ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-16T17:37:35.945+08:00  WARN 59736 --- [main] c.b.m.core.injector.DefaultSqlInjector   : class com.devtrack.modules.user.entity.UserRole ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-16T17:37:36.183+08:00  INFO 59736 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3688baab, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4fe2dd02, org.springframework.security.web.context.SecurityContextHolderFilter@4f8659d0, org.springframework.security.web.header.HeaderWriterFilter@350bbd5d, org.springframework.web.filter.CorsFilter@6ba060af, org.springframework.security.web.authentication.logout.LogoutFilter@395a573c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3b4bd341, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@406ad6d5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5817f1ca, org.springframework.security.web.access.ExceptionTranslationFilter@6d8b7ea9, org.springframework.security.web.access.intercept.AuthorizationFilter@16b64a03]
+2026-06-16T17:37:36.254+08:00  INFO 59736 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2026-06-16T17:37:36.259+08:00  INFO 59736 --- [main] com.devtrack.DevtrackServerApplication   : Started DevtrackServerApplication in 1.021 seconds (process running for 1.112)
+2026-06-16T17:37:36.259+08:00  INFO 59736 --- [main] c.devtrack.config.DatabaseInitializer    : 开始执行数据库初始化检查...
+2026-06-16T17:37:36.259+08:00  INFO 59736 --- [main] c.devtrack.config.DatabaseInitializer    : 检查数据库是否存在: devtrack
+2026-06-16T17:37:36.319+08:00  INFO 59736 --- [main] c.devtrack.config.DatabaseInitializer    : 数据库 devtrack 已存在
+2026-06-16T17:37:36.321+08:00  INFO 59736 --- [main] c.devtrack.config.DatabaseInitializer    : 开始检查表结构...
+2026-06-16T17:37:36.321+08:00  WARN 59736 --- [main] c.devtrack.config.DatabaseInitializer    : 未找到SQL文件，跳过表创建检查
+2026-06-16T17:37:36.322+08:00  INFO 59736 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-16T17:37:36.365+08:00  INFO 59736 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@308c65e0
+2026-06-16T17:37:36.366+08:00  INFO 59736 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-16T17:37:36.368+08:00  INFO 59736 --- [main] c.devtrack.config.DatabaseInitializer    : 表结构检查完成！
+2026-06-16T17:37:36.368+08:00  INFO 59736 --- [main] c.devtrack.config.DatabaseInitializer    : 数据库初始化检查完成！
+2026-06-16T17:38:27.153+08:00  INFO 59736 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-16T17:38:27.156+08:00  INFO 59736 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-16T17:38:36.273+08:00  INFO 60019 --- [main] com.devtrack.DevtrackServerApplication   : Starting DevtrackServerApplication using Java 17.0.19 with PID 60019 (/Users/friday/code/devtrack-server/target/classes started by friday in /Users/friday/code/devtrack-server)
+2026-06-16T17:38:36.274+08:00  INFO 60019 --- [main] com.devtrack.DevtrackServerApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-06-16T17:38:36.645+08:00  INFO 60019 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2026-06-16T17:38:36.649+08:00  INFO 60019 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-16T17:38:36.649+08:00  INFO 60019 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
+2026-06-16T17:38:36.673+08:00  INFO 60019 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-16T17:38:36.673+08:00  INFO 60019 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 388 ms
+2026-06-16T17:38:36.768+08:00  WARN 60019 --- [main] c.b.m.core.injector.DefaultSqlInjector   : class com.devtrack.modules.rbac.entity.RolePermission ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-16T17:38:36.790+08:00  WARN 60019 --- [main] c.b.m.core.injector.DefaultSqlInjector   : class com.devtrack.modules.user.entity.UserRole ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-06-16T17:38:37.011+08:00  INFO 60019 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7114e780, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4def42c3, org.springframework.security.web.context.SecurityContextHolderFilter@149d7cc6, org.springframework.security.web.header.HeaderWriterFilter@774f2992, org.springframework.web.filter.CorsFilter@72110818, org.springframework.security.web.authentication.logout.LogoutFilter@1d4cc7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@d49e8c6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@674184d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6eabe718, org.springframework.security.web.access.ExceptionTranslationFilter@2e3252, org.springframework.security.web.access.intercept.AuthorizationFilter@2ad2b274]
+2026-06-16T17:38:37.081+08:00  INFO 60019 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2026-06-16T17:38:37.084+08:00  INFO 60019 --- [main] com.devtrack.DevtrackServerApplication   : Started DevtrackServerApplication in 0.927 seconds (process running for 1.009)
+2026-06-16T17:38:37.085+08:00  INFO 60019 --- [main] c.devtrack.config.DatabaseInitializer    : 开始执行数据库初始化检查...
+2026-06-16T17:38:37.085+08:00  INFO 60019 --- [main] c.devtrack.config.DatabaseInitializer    : 检查数据库是否存在: devtrack
+2026-06-16T17:38:37.131+08:00  INFO 60019 --- [main] c.devtrack.config.DatabaseInitializer    : 数据库 devtrack 已存在
+2026-06-16T17:38:37.132+08:00  INFO 60019 --- [main] c.devtrack.config.DatabaseInitializer    : 开始检查表结构...
+2026-06-16T17:38:37.133+08:00  INFO 60019 --- [main] c.devtrack.config.DatabaseInitializer    : 从项目根目录读取SQL文件: file:db/sql/*.sql
+2026-06-16T17:38:37.133+08:00  INFO 60019 --- [main] c.devtrack.config.DatabaseInitializer    : 读取SQL文件: devtrack.sql
+2026-06-16T17:38:37.134+08:00  INFO 60019 --- [main] c.devtrack.config.DatabaseInitializer    : 读取SQL文件: insertsql.sql
+2026-06-16T17:38:37.135+08:00  INFO 60019 --- [main] c.devtrack.config.DatabaseInitializer    : 读取SQL文件: operation_log.sql
+2026-06-16T17:38:37.135+08:00  INFO 60019 --- [main] c.devtrack.config.DatabaseInitializer    : 读取SQL文件: project.sql
+2026-06-16T17:38:37.135+08:00  INFO 60019 --- [main] c.devtrack.config.DatabaseInitializer    : 读取SQL文件: project_member.sql
+2026-06-16T17:38:37.135+08:00  INFO 60019 --- [main] c.devtrack.config.DatabaseInitializer    : 读取SQL文件: schema.sql
+2026-06-16T17:38:37.135+08:00  INFO 60019 --- [main] c.devtrack.config.DatabaseInitializer    : 读取SQL文件: task.sql
+2026-06-16T17:38:37.136+08:00  INFO 60019 --- [main] c.devtrack.config.DatabaseInitializer    : 读取SQL文件: user.sql
+2026-06-16T17:38:37.136+08:00  INFO 60019 --- [main] c.devtrack.config.DatabaseInitializer    : 共解析到 12 个建表语句
+2026-06-16T17:38:37.136+08:00  INFO 60019 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-16T17:38:37.179+08:00  INFO 60019 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@9f48198
+2026-06-16T17:38:37.179+08:00  INFO 60019 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-16T17:38:37.205+08:00  INFO 60019 --- [main] c.devtrack.config.DatabaseInitializer    : 表结构检查完成！
+2026-06-16T17:38:37.205+08:00  INFO 60019 --- [main] c.devtrack.config.DatabaseInitializer    : 数据库初始化检查完成！
+2026-06-16T17:39:11.633+08:00  INFO 60019 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-16T17:39:11.635+08:00  INFO 60019 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
