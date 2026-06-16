@@ -12,4 +12,5 @@ public interface PermissionServce {
     String updatePermission(PermissionDTO permissionDTO);
     String deletePermission(Long id);
     IPage<Permission> queryPermissionList(QueryPermissonDTO queryPermissonDTO);
+    Boolean checkPermission(String code);
 }

@@ -1,9 +1,15 @@
 package com.devtrack;
 
 
+
+import com.devtrack.modules.rbac.dto.PermissionDTO;
+import com.devtrack.modules.rbac.service.PermissionServce;
+import org.junit.jupiter.api.Test;
 import org.reflections.Reflections;
 import org.reflections.util.ConfigurationBuilder;
 import org.reflections.scanners.Scanners;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +17,12 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Set;
 
+@SpringBootTest
 public class ScanAllControllers {
-
-    public static void main(String[] args) {
+    @Autowired
+    private PermissionServce permission;
+    @Test
+    public void scanControllers() {
         // 1. 初始化 Reflections
         Reflections reflections = new Reflections(new ConfigurationBuilder()
                 .forPackage("com.devtrack.modules")
@@ -73,7 +82,17 @@ public class ScanAllControllers {
 
                 // --- 4. 生成 Code (简单的反转逻辑，如 addTask -> task:add) ---
                 String code = generateReversedCode(method.getName());
-
+                
+                // 检查权限是否已存在
+                if (permission.checkPermission(code)){
+                    continue;
+                }
+                PermissionDTO permissionDTO = new PermissionDTO();
+                permissionDTO.setCode(code);
+                permissionDTO.setName("");
+                permissionDTO.setMethod(httpMethod);
+                permissionDTO.setPath(fullPath);
+                permission.createPermission(permissionDTO);
                 // --- 5. 格式化输出 ---
                 System.out.println(String.format("%-25s | %-25s | %-8s | %-50s | %s",
                         permissionValue,

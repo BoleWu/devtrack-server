@@ -79,4 +79,10 @@ public class PermissionImpl implements PermissionServce {
         permission.setPath(permissionDTO.getPath());
         return permission;
     }
+
+    @Override
+   public Boolean checkPermission(String code){
+        return permissionMapper.exists(new LambdaQueryWrapper<Permission>().eq(Permission::getCode, code));
+    }
+
 }

@@ -2,6 +2,7 @@ package com.devtrack.modules.dashboard.mapper;
 
 import com.devtrack.modules.dashboard.vo.DashboardStatsVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 @Mapper
@@ -33,7 +34,7 @@ public interface DashboardMapper {
               	( SELECT COUNT(*) FROM task WHERE deleted = 0 AND assignee_id = #{userId} ) AS totalTasks,
               	( SELECT COUNT(*) FROM task WHERE deleted = 0 AND STATUS = 'DONE' AND assignee_id = #{userId} ) AS completedTasks
             """)
-    DashboardStatsVO getDashboardMetrics(Long userId);
+    DashboardStatsVO getDashboardMetrics(@Param("userId") Long userId);
 }
 
 
