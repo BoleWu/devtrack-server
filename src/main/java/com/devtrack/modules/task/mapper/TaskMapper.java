@@ -3,7 +3,6 @@ package com.devtrack.modules.task.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.devtrack.modules.task.entity.Task;
-import com.devtrack.modules.task.vo.BurnDownPointVO;
 import com.devtrack.modules.task.vo.GanttVO;
 import com.devtrack.modules.project.vo.ProjectTaskStatsVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -32,23 +31,17 @@ public interface TaskMapper extends BaseMapper<Task> {
 
     @Select("""
             <script>
-            SELECT DATE(t.create_time) as day,
-                   COUNT(*) as remain
-            FROM task t
-            left join task_member tm
-            on t.id=tm.task_id
-            WHERE  t.deleted = 0
-            <if test="id != null and id !=''">
-            AND t.project_id = #{id}
+            SELECT id, title, status, create_time, update_time, deadline
+            FROM task
+            WHERE deleted = 0
+            <if test="id != null">
+            AND project_id = #{id}
             </if>
-            and tm.user_id=#{userId}
-            GROUP BY DATE(t.create_time)
-            ORDER BY day
+            ORDER BY create_time
             </script>
             """)
-    List<BurnDownPointVO> burndown(
-            @Param("id") Long id,
-            @Param("userId") Long userId
+    List<Task> selectBurndownTasks(
+            @Param("id") Long id
     );
 
     @Select("""
@@ -75,5 +68,3 @@ public interface TaskMapper extends BaseMapper<Task> {
             """)
     void restore(@Param("id") Long id);
 }
-
-

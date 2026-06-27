@@ -2,6 +2,8 @@ package com.devtrack.modules.task.vo;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+
 /**
  * @author Friday
  * @Date 2026-02-04 21:20
@@ -9,7 +11,6 @@ import lombok.Data;
 
 @Data
 public class BurnDownPointVO {
-    private String day;
+    private LocalDate day;
     private Integer remain;
 }
-

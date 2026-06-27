@@ -30,7 +30,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -165,10 +168,69 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<BurnDownPointVO> burndown(Long projectId) {
-        Long userId = UserContext.getUserId();
-        List<BurnDownPointVO> list = taskMapper.burndown(projectId, userId);
-        log.debug("list: {}", list);
-        return list;
+        List<Task> tasks = taskMapper.selectBurndownTasks(projectId);
+
+        if (tasks.isEmpty()) {
+            return List.of();
+        }
+
+        // 获取项目信息，取项目 createTime 作为燃尽图起点
+        Project project = projectMapper.selectById(projectId);
+        LocalDate startDate = project != null && project.getCreateTime() != null
+                ? project.getCreateTime().toLocalDate()
+                : tasks.stream()
+                        .map(t -> t.getCreateTime() != null ? t.getCreateTime().toLocalDate() : null)
+                        .filter(d -> d != null)
+                        .min(LocalDate::compareTo)
+                        .orElse(LocalDate.now());
+
+        // 横轴终点：所有任务（含已完成）中最晚的 deadline
+        LocalDate endDate = tasks.stream()
+                .map(Task::getDeadline)
+                .filter(d -> d != null)
+                .max(LocalDate::compareTo)
+                .orElse(LocalDate.now());
+
+        if (endDate.isBefore(startDate)) {
+            endDate = startDate;
+        }
+
+        // 项目总任务数
+        int totalTasks = tasks.size();
+
+        List<BurnDownPointVO> result = new ArrayList<>();
+
+        for (long i = 0; i <= ChronoUnit.DAYS.between(startDate, endDate); i++) {
+            LocalDate day = startDate.plusDays(i);
+            // 剩余 = 总任务数 - 到当天为止已完成的任务数
+            // DONE 状态的任务：用 updateTime 作为完成日期
+            // 其他状态：用 deadline 作为结束日期
+            long completed = tasks.stream()
+                    .filter(t -> {
+                        LocalDate referenceDate;
+                        if ("DONE".equals(t.getStatus()) && t.getUpdateTime() != null) {
+                            referenceDate = t.getUpdateTime().toLocalDate();
+                        } else {
+                            referenceDate = t.getDeadline();
+                        }
+                        boolean match = referenceDate != null && !referenceDate.isAfter(day);
+                        if (match) {
+                            log.info("[burndown debug] day={}, taskId={}, status={}, referenceDate={}, match={}",
+                                    day, t.getId(), t.getStatus(), referenceDate, match);
+                        }
+                        return match;
+                    })
+                    .filter(t -> "DONE".equals(t.getStatus()))
+                    .count();
+            log.info("[burndown debug] day={}, totalTasks={}, completed={}, remain={}",
+                    day, totalTasks, completed, totalTasks - (int) completed);
+            BurnDownPointVO point = new BurnDownPointVO();
+            point.setDay(day);
+            point.setRemain(totalTasks - (int) completed);
+            result.add(point);
+        }
+
+        return result;
     }
 
     @Override
@@ -243,6 +305,3 @@ public class TaskServiceImpl implements TaskService {
         opLogService.log("TASK", dto.getTaskId(), "ACTIVATE", map);
     }
 }
-
-
-

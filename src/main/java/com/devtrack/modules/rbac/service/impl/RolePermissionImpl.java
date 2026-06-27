@@ -64,15 +64,28 @@ public class RolePermissionImpl extends ServiceImpl<RolePermissionMapper, RolePe
         Long roleId = rolePermissionDTO.getRoleId();
         List<Long> permissionIds = rolePermissionDTO.getPermissionIds();
         //先删除改角色的权限
-        if (rolePermissionMapper.exists(new LambdaQueryWrapper<RolePermission>().eq(RolePermission::getRoleId, roleId))) {
-            LambdaQueryWrapper<RolePermission> wrapper = new LambdaQueryWrapper<>();
-            wrapper.eq(RolePermission::getRoleId, roleId);
-            this.remove(wrapper);
-        }
+//        if (rolePermissionMapper.exists(new LambdaQueryWrapper<RolePermission>().eq(RolePermission::getRoleId, roleId))) {
+//            LambdaQueryWrapper<RolePermission> wrapper = new LambdaQueryWrapper<>();
+//            wrapper.eq(RolePermission::getRoleId, roleId);
+//            this.remove(wrapper);
+//        }
         // 验证所有权限 ID 是否存在
         validatePermissionIds(permissionIds);
+                
+        // 查询该角色已有的权限 ID
+        List<RolePermission> existingPermissions = this.list(new LambdaQueryWrapper<RolePermission>()
+                .eq(RolePermission::getRoleId, roleId));
+        Set<Long> existingPermissionIds = existingPermissions.stream()
+                .map(RolePermission::getPermissionId)
+                .collect(Collectors.toSet());
+                
         List<RolePermission> rolePermissionList = new ArrayList<>();
         for (Long permissionId : permissionIds) {
+            // 如果该角色已有此权限，则跳过
+            if (existingPermissionIds.contains(permissionId)) {
+                continue;
+            }
+                    
             RolePermission rolePermission = new RolePermission();
             rolePermission.setRoleId(roleId);
             rolePermission.setPermissionId(permissionId);
